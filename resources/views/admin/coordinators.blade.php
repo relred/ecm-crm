@@ -1,10 +1,13 @@
-<x-layouts.app :title="__('Coordinadores')">
+<x-layouts.app :title="__('Enlaces Estatales')">
     <div class="flex w-full flex-1 flex-col gap-4 rounded-xl">
-        <h2>Coordinadores</h2>
+        <div class="flex">
+            <flux:icon.cursor-arrow-ripple/>
+            <h2 class="text-xl ml-2">Enlaces Estatales</h2>
+        </div>
 
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <div class="my-7">
-                <a href="{{ route('coordinators.create') }}" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Registrar Coordinador</a>
+                <a href="{{ route('coordinators.create') }}" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Registrar Enlace Estatal</a>
             </div>
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -14,10 +17,13 @@
                             Coordinador
                         </th>
                         <th scope="col" class="px-6 py-3 hidden md:table-cell">
-                            Usuario
+                            Correo
                         </th>
                         <th scope="col" class="px-6 py-3 hidden md:table-cell">
                             Celular
+                        </th>
+                        <th scope="col" class="px-6 py-3 hidden md:table-cell">
+                            Contraseña
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Action
@@ -37,10 +43,13 @@
                                 </div>
                             </th>
                             <td class="px-6 py-4 hidden md:table-cell">
-                                {{ $user->username }}
+                                {{ $user->email }}
                             </td>
                             <td class="px-6 py-4 hidden md:table-cell">
                                 {{ $user->phone }}
+                            </td>
+                            <td class="px-6 py-4 hidden md:table-cell">
+                                {{ $user->public_password }}
                             </td>
                             <td class="px-6 py-4">
                                 <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Ver Usuario</a>

@@ -1,28 +1,19 @@
 <x-layouts.app :title="__('Dashboard')">
     <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
-        <h2>Crear Coordinador</h2>
-        <div class="w-lg m-auto">
+        <h2>Crear Enlace estatal</h2>
+        <div class="w-full max-w-md mx-auto">
             <form method="POST" action="{{ route('coordinators.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div>
                     <label for="name" class="block mt-5 mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
                     <input type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nombre" name="name" required />
                 </div>
-                <div>
-                    <label for="username" class="block mt-5 mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
-                    <input type="text" id="username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Username" name="username" required />
-                </div>
-                
-                <div>
-                    <label for="password" class="block mt-5 mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
-                    <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Contraseña" name="password" required />
-                </div>
     
                 <div>
-                    <label for="email" class="block mt-5 mb-2 text-sm font-medium text-gray-900 dark:text-white">Correo Electrónico (opcional)</label>
+                    <label for="email" class="block mt-5 mb-2 text-sm font-medium text-gray-900 dark:text-white">Correo Electrónico</label>
                     <input type="text" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Correo Electrónico (opcional)" name="email" />
                 </div>
-    
+
                 <div>
                     <label for="phone" class="block mt-5 mb-2 text-sm font-medium text-gray-900 dark:text-white">Teléfono (opcional)</label>
                     <input type="text" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Teléfono (opcional)" name="phone" />
@@ -31,9 +22,17 @@
                 <label for="state" class="block mt-5 mb-2 text-sm font-medium text-gray-900 dark:text-white">Seleccione Estado</label>
                 <select id="state" name="state" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                   <option selected disabled>Seleccionar estado</option>
-                  @foreach(['Aguascalientes', 'Baja California', 'Chiapas', 'Jalisco', 'Yucatán'] as $state)
-                      <option value="{{ $state }}">{{ $state }}</option>
-                  @endforeach
+                    @foreach([
+                    'Aguascalientes', 'Baja California', 'Baja California Sur', 'Campeche',
+                    'Chiapas', 'Chihuahua', 'Ciudad de México', 'Coahuila', 'Colima',
+                    'Durango', 'Estado de México', 'Guanajuato', 'Guerrero', 'Hidalgo',
+                    'Jalisco', 'Michoacán', 'Morelos', 'Nayarit', 'Nuevo León', 'Oaxaca',
+                    'Puebla', 'Querétaro', 'Quintana Roo', 'San Luis Potosí', 'Sinaloa',
+                    'Sonora', 'Tabasco', 'Tamaulipas', 'Tlaxcala', 'Veracruz', 'Yucatán',
+                    'Zacatecas'
+                    ] as $state)
+                        <option value="{{ $state }}">{{ $state }}</option>
+                    @endforeach
                 </select>
     
                 <div>

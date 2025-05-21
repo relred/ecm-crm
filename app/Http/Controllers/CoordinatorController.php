@@ -26,19 +26,25 @@ class CoordinatorController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:users',
-            'password' => 'required|string|min:8',
-            'email' => 'required|email|unique:users',
+            'username' => 'nullable|string|max:255|unique:users',
+            'email' => 'nullable|email|unique:users',
             'phone' => 'nullable|string',
             'state' => 'nullable|string',
             'municipality' => 'nullable|string',
-            'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // max 2MB
+            'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
     
+        // Generate a simple Spanish password
+        $words = ['madera', 'arbol', 'soles', 'luna', 'nube', 'tierra', 'fuego', 'agua', 'flor', 'cielo'];
+        $word = $words[array_rand($words)];
+        $number = rand(100, 999);
+        $plainPassword = $word . $number;
+
         $coordinator = new User();
         $coordinator->name = $request->name;
         $coordinator->username = $request->username;
-        $coordinator->password = Hash::make($request->password);
+        $coordinator->password = Hash::make($plainPassword);
+        $coordinator->public_password = $plainPassword; // You must have this column in your `users` table
         $coordinator->email = $request->email;
         $coordinator->phone = $request->phone;
         $coordinator->state = $request->state;
@@ -46,7 +52,6 @@ class CoordinatorController extends Controller
         $coordinator->role = 'coordinator';
         $coordinator->parent_id = auth()->id();
     
-        // Handle photo upload
         if ($request->hasFile('photo')) {
             $path = $request->file('photo')->store('photos', 'public');
             $coordinator->photo = $path;
@@ -54,6 +59,6 @@ class CoordinatorController extends Controller
     
         $coordinator->save();
     
-        return redirect()->route('dashboard')->with('success', 'Coordinador creado');
+        return redirect()->route('dashboard')->with('success', 'Coordinador creado con contraseña: ' . $plainPassword);
     }
 }

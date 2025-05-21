@@ -19,7 +19,7 @@ Route::get('/dashboard', function(){
 });
 
 Route::get('/admin/coordinatos', [CoordinatorController::class, 'index'])
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth', 'admin', 'verified'])
     ->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
@@ -30,7 +30,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/coordinators/create', [CoordinatorController::class, 'create'])->name('coordinators.create');
     Route::post('/coordinators', [CoordinatorController::class, 'store'])->name('coordinators.store');
 });

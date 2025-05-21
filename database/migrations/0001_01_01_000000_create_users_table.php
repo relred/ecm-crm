@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('username')->unique();
+            $table->string('username')->nullable();
             $table->string('password');
-            $table->string('public_password');
+            $table->string('public_password')->nullable();
             
-            $table->enum('role', ['admin', 'coordinator', 'subcoordinator', 'promoter']);
+            $table->enum('role', ['admin', 'coordinator', 'operator', 'subcoordinator', 'promoter']);
             
-            $table->string('email')->nullable();
+            $table->string('email')->unique()->nullable();
             $table->string('phone')->nullable();
         
             $table->string('state')->nullable(); // only for coordinator and inherited by others
