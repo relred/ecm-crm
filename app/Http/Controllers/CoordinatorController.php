@@ -5,9 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\View\View;
 
 class CoordinatorController extends Controller
 {
+    function index(): View
+    {
+        $users = User::where('role', 'coordinator')->get();
+        return view('admin.coordinators', compact('users'));
+    }
+
     public function create()
     {
         return view('users.create-coordinator');
@@ -15,7 +22,8 @@ class CoordinatorController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+
+/*         $request->validate([
             'name' => 'required|string',
             'username' => 'required|string|unique:users,username',
             'password' => 'required|string|min:6|confirmed',
@@ -24,7 +32,7 @@ class CoordinatorController extends Controller
             'state' => 'required|string',
             'municipality' => 'nullable|string',
             'photo' => 'nullable|image|max:2048',
-        ]);
+        ]); */
 
         $coordinator = new User();
         $coordinator->name = $request->name;

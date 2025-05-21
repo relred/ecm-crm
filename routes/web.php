@@ -14,6 +14,8 @@ Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
+Route::get('/admin/coordinatos', [CoordinatorController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 
