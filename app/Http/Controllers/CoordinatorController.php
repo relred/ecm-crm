@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
 
 class CoordinatorController extends Controller
 {
@@ -17,23 +18,23 @@ class CoordinatorController extends Controller
 
     public function create()
     {
-        return view('users.create-coordinator');
+        return view('admin.coordinators-create');
     }
+
 
     public function store(Request $request)
     {
-
-/*         $request->validate([
-            'name' => 'required|string',
-            'username' => 'required|string|unique:users,username',
-            'password' => 'required|string|min:6|confirmed',
-            'email' => 'nullable|email',
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users',
+            'password' => 'required|string|min:8',
+            'email' => 'required|email|unique:users',
             'phone' => 'nullable|string',
-            'state' => 'required|string',
+            'state' => 'nullable|string',
             'municipality' => 'nullable|string',
-            'photo' => 'nullable|image|max:2048',
-        ]); */
-
+            'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // max 2MB
+        ]);
+    
         $coordinator = new User();
         $coordinator->name = $request->name;
         $coordinator->username = $request->username;
@@ -43,12 +44,16 @@ class CoordinatorController extends Controller
         $coordinator->state = $request->state;
         $coordinator->municipality = $request->municipality;
         $coordinator->role = 'coordinator';
-        $coordinator->parent_id = auth()->id(); // created by admin
-
-        // Handle photo if needed
-
+        $coordinator->parent_id = auth()->id();
+    
+        // Handle photo upload
+        if ($request->hasFile('photo')) {
+            $path = $request->file('photo')->store('photos', 'public');
+            $coordinator->photo = $path;
+        }
+    
         $coordinator->save();
-
+    
         return redirect()->route('dashboard')->with('success', 'Coordinador creado');
     }
 }
