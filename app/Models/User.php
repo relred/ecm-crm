@@ -69,6 +69,11 @@ class User extends Authenticatable
         return $this->hasMany(User::class, 'parent_id');
     }
 
+    public function promoted()
+    {
+        return $this->hasMany(Promoted::class, 'created_by');
+    }
+
     // Role scopes
     public function scopeRole($query, $role)
     {

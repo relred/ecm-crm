@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CoordinatorController;
 use App\Http\Controllers\ExternalRegisterController;
 use App\Http\Controllers\OperatorController;
+use App\Http\Controllers\PromotedController;
 use App\Http\Controllers\PromoterController;
 use App\Http\Controllers\SubcoordinatorController;
 
@@ -38,7 +39,7 @@ Route::get('/dashboard', function(){
     }
 
     if ($user->isPromoter()) {
-        return redirect()->route('promoter.dashboard');
+        return redirect()->route('promoted.index');
     }
 
     // Optional fallback if none match
@@ -71,10 +72,16 @@ Route::middleware(['auth', 'role:admin,coordinator'])->group(function () {
     Route::post('/operators', [OperatorController::class, 'store'])->name('operators.store');
 });
 
-Route::middleware(['auth', 'role:subcoordinator, operator'])->group(function () {
+Route::middleware(['auth', 'role:subcoordinator,operator'])->group(function () {
     Route::get('/promoters', [PromoterController::class, 'index'])->name('promoters');
     Route::get('/promoters/create', [PromoterController::class, 'create'])->name('promoters.create');
     Route::post('/promoters', [PromoterController::class, 'store'])->name('promoters.store');
+});
+
+Route::middleware(['auth', 'role:promoter,operator'])->group(function () {
+    Route::get('/promoted/create', [PromotedController::class, 'create'])->name('promoted.create');
+    Route::post('/promoted', [PromotedController::class, 'store'])->name('promoted.store');
+    Route::get('/promoted', [PromotedController::class, 'index'])->name('promoted.index');
 });
 
 Route::get('/external-register/{parent}/{roleHash}', [ExternalRegisterController::class, 'showForm'])

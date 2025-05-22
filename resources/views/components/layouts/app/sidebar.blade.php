@@ -25,9 +25,14 @@
                         <flux:navlist.item icon="lifebuoy" :href="route('operators')" :current="request()->routeIs('operators')" wire:navigate>{{ __('Operadores ECM') }}</flux:navlist.item>
                     @endif
 
-                    @if (auth()->user()->role == "subcoordinator" || auth()->user()->role == "operator  ")
+                    @if (auth()->user()->role == "subcoordinator" || auth()->user()->role == "operator")
                         <flux:navlist.item icon="user" :href="route('promoters')" :current="request()->routeIs('promoters')" wire:navigate>{{ __('Promotores') }}</flux:navlist.item>
                     @endif
+
+                    @if (auth()->user()->role == "promoter" || auth()->user()->role == "operator")
+                        <flux:navlist.item icon="user-group" :href="route('promoted.index')" :current="request()->routeIs('promoted.index')" wire:navigate>{{ __('Promovidos') }}</flux:navlist.item>
+                    @endif
+
                 </flux:navlist.group>
             </flux:navlist>
 
