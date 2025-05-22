@@ -1,15 +1,15 @@
-<x-layouts.app :title="__('Dashboard')">
+<x-layouts.app :title="__('Registrar Operador')">
     <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
-        <h2>Crear Enlace estatal</h2>
+        <h2>Crear Operador ECM</h2>
         <div class="w-full max-w-md mx-auto">
 
-            <a href="{{ route('dashboard') }}" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
+            <a href="{{ route('operators') }}" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
                 </svg>
                 Volver
             </a>
-            <form method="POST" action="{{ route('coordinators.store') }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('operators.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div>
                     <label for="name" class="block mt-5 mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
@@ -26,21 +26,23 @@
                     <input type="text" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Teléfono (opcional)" name="phone" />
                 </div>
     
-                <label for="state" class="block mt-5 mb-2 text-sm font-medium text-gray-900 dark:text-white">Seleccione Estado</label>
-                <select id="state" name="state" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                  <option selected disabled>Seleccionar estado</option>
-                    @foreach([
-                    'Aguascalientes', 'Baja California', 'Baja California Sur', 'Campeche',
-                    'Chiapas', 'Chihuahua', 'Ciudad de México', 'Coahuila', 'Colima',
-                    'Durango', 'Estado de México', 'Guanajuato', 'Guerrero', 'Hidalgo',
-                    'Jalisco', 'Michoacán', 'Morelos', 'Nayarit', 'Nuevo León', 'Oaxaca',
-                    'Puebla', 'Querétaro', 'Quintana Roo', 'San Luis Potosí', 'Sinaloa',
-                    'Sonora', 'Tabasco', 'Tamaulipas', 'Tlaxcala', 'Veracruz', 'Yucatán',
-                    'Zacatecas'
-                    ] as $state)
-                        <option value="{{ $state }}">{{ $state }}</option>
-                    @endforeach
-                </select>
+                @if (auth()->user()->role == "admin")                    
+                    <label for="state" class="block mt-5 mb-2 text-sm font-medium text-gray-900 dark:text-white">Seleccione Estado</label>
+                    <select id="state" name="state" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                    <option selected disabled>Seleccionar estado</option>
+                        @foreach([
+                        'Aguascalientes', 'Baja California', 'Baja California Sur', 'Campeche',
+                        'Chiapas', 'Chihuahua', 'Ciudad de México', 'Coahuila', 'Colima',
+                        'Durango', 'Estado de México', 'Guanajuato', 'Guerrero', 'Hidalgo',
+                        'Jalisco', 'Michoacán', 'Morelos', 'Nayarit', 'Nuevo León', 'Oaxaca',
+                        'Puebla', 'Querétaro', 'Quintana Roo', 'San Luis Potosí', 'Sinaloa',
+                        'Sonora', 'Tabasco', 'Tamaulipas', 'Tlaxcala', 'Veracruz', 'Yucatán',
+                        'Zacatecas'
+                        ] as $state)
+                            <option value="{{ $state }}">{{ $state }}</option>
+                        @endforeach
+                    </select>
+                @endif
     
                 <div>
                     <label for="municipality" class="block mt-5 mb-2 text-sm font-medium text-gray-900 dark:text-white">Municipio (opcional)</label>

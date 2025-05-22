@@ -5,6 +5,10 @@ use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CoordinatorController;
+use App\Http\Controllers\ExternalRegisterController;
+use App\Http\Controllers\OperatorController;
+use App\Http\Controllers\PromoterController;
+use App\Http\Controllers\SubcoordinatorController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -15,12 +19,31 @@ Route::get('/', function () {
     ->name('dashboard'); */
 
 Route::get('/dashboard', function(){
-    return redirect()->route('dashboard');
-});
+    $user = auth()->user();
 
-Route::get('/admin/coordinatos', [CoordinatorController::class, 'index'])
-    ->middleware(['auth', 'admin', 'verified'])
-    ->name('dashboard');
+    if ($user->isAdmin()) {
+        return redirect()->route('coordinators.index');
+    }
+    
+    if ($user->isCoordinator()) {
+        return redirect()->route('coordinator.subcoordinators.index');
+    }
+
+    if ($user->isOperator()) {
+        return redirect()->route('promoters');
+    }
+
+    if ($user->isSubcoordinator()) {
+        return redirect()->route('promoters');
+    }
+
+    if ($user->isPromoter()) {
+        return redirect()->route('promoter.dashboard');
+    }
+
+    // Optional fallback if none match
+    abort(403, 'Unauthorized');
+})->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
@@ -30,9 +53,33 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
 });
 
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/coordinators/create', [CoordinatorController::class, 'create'])->name('coordinators.create');
-    Route::post('/coordinators', [CoordinatorController::class, 'store'])->name('coordinators.store');
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin/coordinatos', [CoordinatorController::class, 'index'])->name('coordinators.index');
+    Route::get('/admin/coordinators/create', [CoordinatorController::class, 'create'])->name('coordinators.create');
+    Route::post('/admin/coordinators', [CoordinatorController::class, 'store'])->name('coordinators.store');
 });
+
+Route::middleware(['auth', 'role:coordinator'])->group(function () {
+    Route::get('/coordinator/subcoordinators', [SubcoordinatorController::class, 'index'])->name('coordinator.subcoordinators.index');
+    Route::get('/coordinator/subcoordinators/create', [SubcoordinatorController::class, 'create'])->name('coordinator.subcoordinators.create');
+    Route::post('/coordinator/subcoordinators', [SubcoordinatorController::class, 'store'])->name('coordinator.subcoordinators.store');
+});
+
+Route::middleware(['auth', 'role:admin,coordinator'])->group(function () {
+    Route::get('/operators', [OperatorController::class, 'index'])->name('operators');
+    Route::get('/operators/create', [OperatorController::class, 'create'])->name('operators.create');
+    Route::post('/operators', [OperatorController::class, 'store'])->name('operators.store');
+});
+
+Route::middleware(['auth', 'role:subcoordinator, operator'])->group(function () {
+    Route::get('/promoters', [PromoterController::class, 'index'])->name('promoters');
+    Route::get('/promoters/create', [PromoterController::class, 'create'])->name('promoters.create');
+    Route::post('/promoters', [PromoterController::class, 'store'])->name('promoters.store');
+});
+
+Route::get('/external-register/{parent}/{roleHash}', [ExternalRegisterController::class, 'showForm'])
+    ->name('external.register');
+Route::post('/external-register', [ExternalRegisterController::class, 'submitForm'])
+->name('external.register.submit');
 
 require __DIR__.'/auth.php';

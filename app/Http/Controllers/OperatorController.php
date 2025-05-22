@@ -2,27 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\View\View;
-use Illuminate\Support\Facades\Storage;
 
-class CoordinatorController extends Controller
+class OperatorController extends Controller
 {
-    function index(): View
+    function index()
     {
-        $users = User::role('coordinator')->get();
-        return view('admin.coordinators', compact('users'));
+        $user = Auth::user();
+
+        $users = User::where('role', 'operator')
+            ->when(!$user->isAdmin(), function ($query) use ($user) {
+                // If not admin, only show operators whose parent is the current user
+                $query->where('parent_id', $user->id);
+            }, function ($query) {
+                // If admin, show operators whose parent is an admin
+                $query->whereHas('parent', function ($q) {
+                    $q->where('role', 'admin');
+                });
+            })
+            ->get();
+
+
+        return view('admin.operators', compact('users'));
     }
 
-    public function create()
+    function create()
     {
-        return view('admin.coordinators-create');
+        return view('admin.operators-create');
     }
 
-
-    public function store(Request $request)
+    function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -33,7 +45,7 @@ class CoordinatorController extends Controller
             'municipality' => 'nullable|string',
             'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
-    
+
         // Generate a simple Spanish password
         $words = ['madera', 'arbol', 'soles', 'luna', 'nube', 'tierra', 'fuego', 'agua', 'flor', 'cielo'];
         $word = $words[array_rand($words)];
@@ -47,9 +59,9 @@ class CoordinatorController extends Controller
         $coordinator->public_password = $plainPassword; // You must have this column in your `users` table
         $coordinator->email = $request->email;
         $coordinator->phone = $request->phone;
-        $coordinator->state = $request->state;
+        $coordinator->state = auth()->user()->role == 'admin' ? $request->state : auth()->user()->state;
         $coordinator->municipality = $request->municipality;
-        $coordinator->role = 'coordinator';
+        $coordinator->role = 'operator';
         $coordinator->parent_id = auth()->id();
     
         if ($request->hasFile('photo')) {
@@ -59,6 +71,6 @@ class CoordinatorController extends Controller
     
         $coordinator->save();
     
-        return redirect()->route('dashboard')->with('success', 'Coordinador creado con contraseña: ' . $plainPassword);
+        return redirect()->route('operators')->with('success', 'Coordinador creado con contraseña: ' . $plainPassword);
     }
 }

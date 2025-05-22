@@ -13,8 +13,21 @@
 
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Platform')" class="grid">
-                    <flux:navlist.item icon="cursor-arrow-ripple" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Enlaces Estatales') }}</flux:navlist.item>
-                    <flux:navlist.item icon="lifebuoy" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Operadores ECM') }}</flux:navlist.item>
+                    @if (auth()->user()->role == "admin")
+                        <flux:navlist.item icon="cursor-arrow-ripple" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Enlaces Estatales') }}</flux:navlist.item>
+                    @endif
+
+                    @if (auth()->user()->role == "coordinator")
+                        <flux:navlist.item icon="map" :href="route('coordinator.subcoordinators.index')" :current="request()->routeIs('coordinator.subcoordinators.index')" wire:navigate>{{ __('Operadores Enlace') }}</flux:navlist.item>
+                    @endif
+
+                    @if (auth()->user()->role == "admin" || auth()->user()->role == "coordinator")
+                        <flux:navlist.item icon="lifebuoy" :href="route('operators')" :current="request()->routeIs('operators')" wire:navigate>{{ __('Operadores ECM') }}</flux:navlist.item>
+                    @endif
+
+                    @if (auth()->user()->role == "subcoordinator" || auth()->user()->role == "operator  ")
+                        <flux:navlist.item icon="user" :href="route('promoters')" :current="request()->routeIs('promoters')" wire:navigate>{{ __('Promotores') }}</flux:navlist.item>
+                    @endif
                 </flux:navlist.group>
             </flux:navlist>
 

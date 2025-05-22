@@ -5,24 +5,31 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\View\View;
-use Illuminate\Support\Facades\Storage;
 
-class CoordinatorController extends Controller
+class PromoterController extends Controller
 {
-    function index(): View
+    function index()
     {
-        $users = User::role('coordinator')->get();
-        return view('admin.coordinators', compact('users'));
+        $user = auth()->user();
+
+        $users = User::where('role', 'promoter')->where('parent_id', $user->id)->get();
+
+        $link = route('external.register', [
+            'parent' => auth()->id(),
+            'roleHash' => config('rolelinks.map')['promoter'],
+        ]);
+
+        return view('promoters.index', compact('users'))->with([
+            'inviteLink' => $link,
+        ]);
     }
 
-    public function create()
+    function create()
     {
-        return view('admin.coordinators-create');
+        return view('promoters.create');
     }
 
-
-    public function store(Request $request)
+    function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -33,7 +40,7 @@ class CoordinatorController extends Controller
             'municipality' => 'nullable|string',
             'photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
-    
+
         // Generate a simple Spanish password
         $words = ['madera', 'arbol', 'soles', 'luna', 'nube', 'tierra', 'fuego', 'agua', 'flor', 'cielo'];
         $word = $words[array_rand($words)];
@@ -44,12 +51,12 @@ class CoordinatorController extends Controller
         $coordinator->name = $request->name;
         $coordinator->username = $request->username;
         $coordinator->password = Hash::make($plainPassword);
-        $coordinator->public_password = $plainPassword; // You must have this column in your `users` table
+        $coordinator->public_password = $plainPassword;
         $coordinator->email = $request->email;
         $coordinator->phone = $request->phone;
-        $coordinator->state = $request->state;
+        $coordinator->state = auth()->user()->state;
         $coordinator->municipality = $request->municipality;
-        $coordinator->role = 'coordinator';
+        $coordinator->role = 'promoter';
         $coordinator->parent_id = auth()->id();
     
         if ($request->hasFile('photo')) {
@@ -59,6 +66,6 @@ class CoordinatorController extends Controller
     
         $coordinator->save();
     
-        return redirect()->route('dashboard')->with('success', 'Coordinador creado con contraseña: ' . $plainPassword);
+        return redirect()->route('promoters')->with('success', 'Coordinador creado con contraseña: ' . $plainPassword);
     }
 }

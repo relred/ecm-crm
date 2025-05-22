@@ -1,20 +1,20 @@
-<x-layouts.app :title="__('Enlaces Estatales')">
+<x-layouts.app :title="__('Operadores ECM')">
     <div class="flex w-full flex-1 flex-col gap-4 rounded-xl">
         <div class="flex">
-            <flux:icon.cursor-arrow-ripple/>
-            <h2 class="text-xl ml-2">Enlaces Estatales</h2>
+            <flux:icon.lifebuoy/>
+            <h2 class="text-xl ml-2">Operadores ECM</h2>
         </div>
 
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <div class="my-7">
-                <a href="{{ route('coordinators.create') }}" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Registrar Enlace Estatal</a>
+                <a href="{{ route('operators.create') }}" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Registrar Operador</a>
             </div>
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
 
                         <th scope="col" class="px-6 py-3">
-                            Enlace Estatal
+                            Operador
                         </th>
                         <th scope="col" class="px-6 py-3 hidden md:table-cell">
                             Correo
