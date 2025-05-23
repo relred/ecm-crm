@@ -49,12 +49,26 @@
         <!-- Main Content -->
         <main class="flex flex-1 items-center justify-center text-center">
             <div class="max-w-2xl">
+                <div class="">
+                    <img
+                        src="{{ asset('images/logo.png') }}"
+                        alt="El Camino de México"
+                        class="bg-black rounded-4xl mx-auto h-52 w-auto mb-5"
+                    />
+                </div>
                 <h1 class="text-4xl font-bold mb-4">Bienvenido a El Camino de México</h1>
                 <p class="text-lg text-gray-600 dark:text-gray-300 mb-8">
                     Sistema CRM interno.
                 </p>
 
-                @guest
+                @auth
+                <a
+                    href="{{ url('/dashboard') }}"
+                    class="px-4 py-2 rounded border border-accent-content text-sm hover:bg-gray-100 dark:hover:bg-gray-800"
+                >
+                    Ingresar
+                </a>
+                @else
                     <div class="space-x-4">
                         <a href="{{ route('login') }}" class="px-5 py-2 text-sm rounded bg-gray-800 text-white hover:bg-gray-700 transition">
                             Iniciar sesión
@@ -65,7 +79,7 @@
                             </a>
                         @endif
                     </div>
-                @endguest
+                @endauth
             </div>
         </main>
 
