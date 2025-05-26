@@ -6,6 +6,7 @@ use App\Livewire\Settings\Profile;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CoordinatorController;
 use App\Http\Controllers\ExternalRegisterController;
+use App\Http\Controllers\MonitorDashboardController;
 use App\Http\Controllers\OperatorController;
 use App\Http\Controllers\PromotedController;
 use App\Http\Controllers\PromoterController;
@@ -42,6 +43,10 @@ Route::get('/dashboard', function(){
         return redirect()->route('promoted.index');
     }
 
+    if ($user->isMonitor()) {
+        return redirect()->route('monitor.dashboard');
+    }
+
     // Optional fallback if none match
     abort(403, 'Unauthorized');
 })->name('dashboard');
@@ -66,7 +71,7 @@ Route::middleware(['auth', 'role:coordinator'])->group(function () {
     Route::post('/coordinator/subcoordinators', [SubcoordinatorController::class, 'store'])->name('coordinator.subcoordinators.store');
 });
 
-Route::middleware(['auth', 'role:admin,coordinator'])->group(function () {
+Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/operators', [OperatorController::class, 'index'])->name('operators');
     Route::get('/operators/create', [OperatorController::class, 'create'])->name('operators.create');
     Route::post('/operators', [OperatorController::class, 'store'])->name('operators.store');
@@ -82,6 +87,10 @@ Route::middleware(['auth', 'role:promoter,operator'])->group(function () {
     Route::get('/promoted/create', [PromotedController::class, 'create'])->name('promoted.create');
     Route::post('/promoted', [PromotedController::class, 'store'])->name('promoted.store');
     Route::get('/promoted', [PromotedController::class, 'index'])->name('promoted.index');
+});
+
+Route::middleware(['auth', 'role:monitor,admin'])->group(function () {
+    Route::get('/monitor/dashboard', [MonitorDashboardController::class, 'index'])->name('monitor.dashboard');
 });
 
 Route::get('/external-register/{parent}/{roleHash}', [ExternalRegisterController::class, 'showForm'])

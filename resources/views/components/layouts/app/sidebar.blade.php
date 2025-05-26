@@ -21,7 +21,7 @@
                         <flux:navlist.item icon="map" :href="route('coordinator.subcoordinators.index')" :current="request()->routeIs('coordinator.subcoordinators.index')" wire:navigate>{{ __('Operadores Enlace') }}</flux:navlist.item>
                     @endif
 
-                    @if (auth()->user()->role == "admin" || auth()->user()->role == "coordinator")
+                    @if (auth()->user()->role == "admin")
                         <flux:navlist.item icon="lifebuoy" :href="route('operators')" :current="request()->routeIs('operators')" wire:navigate>{{ __('Operadores ECM') }}</flux:navlist.item>
                     @endif
 
@@ -31,6 +31,10 @@
 
                     @if (auth()->user()->role == "promoter" || auth()->user()->role == "operator")
                         <flux:navlist.item icon="user-group" :href="route('promoted.index')" :current="request()->routeIs('promoted.index')" wire:navigate>{{ __('Promovidos') }}</flux:navlist.item>
+                    @endif
+
+                    @if (auth()->user()->role == "monitor" || auth()->user()->role == "admin")
+                        <flux:navlist.item icon="presentation-chart-line" :href="route('monitor.dashboard')" :current="request()->routeIs('monitor.dashboard')" wire:navigate>{{ __('Monitoreo') }}</flux:navlist.item>
                     @endif
 
                 </flux:navlist.group>

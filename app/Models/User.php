@@ -85,4 +85,5 @@ class User extends Authenticatable
     public function isOperator() { return $this->role === 'operator'; }
     public function isSubcoordinator() { return $this->role === 'subcoordinator'; }
     public function isPromoter() { return $this->role === 'promoter'; }
+    public function isMonitor() { return $this->role === 'monitor'; }
 }
