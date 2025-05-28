@@ -130,24 +130,62 @@
                     </div>
                 </div>
             </div>
-    
-            <!-- Summary Card -->
-            <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8 mb-8">
-                <div class="text-center">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-2">Resumen</h2>
-                    <p class="text-gray-600 mb-6">Vista consolidada del sistema</p>
-                    
-                    <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mb-4">
-                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                        </svg>
+
+            <!-- Two Column Layout: Summary and Toques Registrados -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <!-- Summary Card -->
+                <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
+                    <div class="text-center">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-2">Resumen</h2>
+                        <p class="text-gray-600 mb-6">Vista consolidada del sistema</p>
+                        
+                        <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mb-4">
+                            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                            </svg>
+                        </div>
+                        
+                        <div class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Toques Registrados Card -->
+                <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"/>
+                            </svg>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800">Toques Registrados</h2>
                     </div>
                     
-                    <div class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    <div class="space-y-4">
+                        @foreach ([1, 2, 3] as $step)
+                            <div class="group bg-gradient-to-r from-gray-50 to-gray-100 hover:from-indigo-50 hover:to-purple-50 rounded-xl p-4 transition-all duration-300 border border-gray-200 hover:border-indigo-300">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-3 min-w-0 flex-1">
+                                        <div class="w-10 h-10 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold text-sm flex-shrink-0 relative">
+                                            {{ $step }}
+                                        </div>
+                                        <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 min-w-0 flex-1">
+                                            <span class="text-gray-700 font-medium text-sm sm:text-base truncate">
+                                                {{ number_format($touchCounts[$step] ?? 0) }} promovidos
+                                            </span>
+                                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs sm:text-sm font-semibold bg-gradient-to-r from-indigo-500 to-purple-600 text-white flex-shrink-0 w-fit">
+                                                {{ $percentages[$step] ?? 0 }}%
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
 
+            <!-- Additional Stats Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 <!-- Card 1: Avance Promedio Nacional -->
                 <div class="bg-white rounded-lg shadow-md p-6 text-center">
