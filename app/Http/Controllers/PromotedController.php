@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Promoted;
+use Illuminate\View\View;
 
 class PromotedController extends Controller
 {
@@ -35,5 +36,11 @@ class PromotedController extends Controller
         Promoted::create($validated);
     
         return redirect()->route('promoted.index')->with('status', 'Promovido registrado con éxito');
-    }    
+    }
+
+    public function view(Promoted $promoted)//: View 
+    {
+        return view('promoted.view', compact('promoted'));
+    }
+
 }

@@ -87,6 +87,7 @@ Route::middleware(['auth', 'role:promoter,operator'])->group(function () {
     Route::get('/promoted/create', [PromotedController::class, 'create'])->name('promoted.create');
     Route::post('/promoted', [PromotedController::class, 'store'])->name('promoted.store');
     Route::get('/promoted', [PromotedController::class, 'index'])->name('promoted.index');
+    Route::get('/promoted/{promoted}', [PromotedController::class, 'view'])->name('promoted.view');
 });
 
 Route::middleware(['auth', 'role:monitor,admin'])->group(function () {

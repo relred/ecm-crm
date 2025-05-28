@@ -16,7 +16,7 @@
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" class="px-6 py-3">Nombre</th>
-                        <th scope="col" class="px-6 py-3">Localidad</th>
+                        <th scope="col" class="px-6 py-3 hidden md:table-cell">Localidad</th>
                         <th scope="col" class="px-6 py-3 hidden md:table-cell">Teléfono</th>
                         <th scope="col" class="px-6 py-3 hidden md:table-cell">Dirección</th>
                         <th scope="col" class="px-6 py-3 hidden md:table-cell">Municipio</th>
@@ -29,7 +29,7 @@
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $person->name }}
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="px-6 py-4 hidden md:table-cell">
                                 {{ $person->locality }}
                             </td>
                             <td class="px-6 py-4 hidden md:table-cell">
@@ -43,7 +43,12 @@
                             </td>
                             <td class="px-6 py-4">
                                 {{-- Placeholder for future actions --}}
-                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Ver</a>
+                                <flux:button
+                                    href="{{ route('promoted.view', $person->id) }}"
+                                    icon:trailing="arrow-up-right"
+                                >
+                                    Ver
+                                </flux:button>
                             </td>
                         </tr>
                     @empty
