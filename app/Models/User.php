@@ -74,6 +74,12 @@ class User extends Authenticatable
         return $this->hasMany(Promoted::class, 'created_by');
     }
 
+    public function touchesPerformed()
+    {
+        return $this->hasMany(Touch::class);
+    }
+
+
     // Role scopes
     public function scopeRole($query, $role)
     {

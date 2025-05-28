@@ -1,4 +1,4 @@
-<x-layouts.app :title="__('Promovidos')">
+<x-layouts.app :title="__('Ver Promovido')">
     <flux:button href="{{ route('promoted.index') }}" icon="arrow-left">Volver</flux:button>
     <div class="max-w-md mx-auto mt-4">
         <div class="bg-white shadow-md rounded-2xl p-6 space-y-6">
@@ -59,8 +59,9 @@
           <div class="flex justify-center items-center">
 
             <flux:button
-                href="#"
+                href="{{ route('followup.index', $promoted->id) }}"
                 variant="primary"
+                class="bg-gray-800 text-accent-foreground"
             >
                 Dar seguimiento
             </flux:button>

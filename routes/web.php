@@ -6,6 +6,7 @@ use App\Livewire\Settings\Profile;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CoordinatorController;
 use App\Http\Controllers\ExternalRegisterController;
+use App\Http\Controllers\FollowUpController;
 use App\Http\Controllers\MonitorDashboardController;
 use App\Http\Controllers\OperatorController;
 use App\Http\Controllers\PromotedController;
@@ -88,6 +89,8 @@ Route::middleware(['auth', 'role:promoter,operator'])->group(function () {
     Route::post('/promoted', [PromotedController::class, 'store'])->name('promoted.store');
     Route::get('/promoted', [PromotedController::class, 'index'])->name('promoted.index');
     Route::get('/promoted/{promoted}', [PromotedController::class, 'view'])->name('promoted.view');
+    Route::get('/promoted/{promoted}/follow-up', [FollowUpController::class, 'index'])->name('followup.index');
+    Route::post('/promoted/{promoted}/follow-up/touch', [FollowUpController::class, 'storeTouch'])->name('followup.touch.store');
 });
 
 Route::middleware(['auth', 'role:monitor,admin'])->group(function () {
