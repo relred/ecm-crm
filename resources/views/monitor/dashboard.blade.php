@@ -171,11 +171,15 @@
                                         </div>
                                         <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 min-w-0 flex-1">
                                             <span class="text-gray-700 font-medium text-sm sm:text-base truncate">
-                                                {{ number_format($touchCounts[$step] ?? 0) }} promovidos
+                                                <!-- 
+                                                    {{ number_format($touchCounts[$step] ?? 0) }} promovidos
+                                                -->
+                                                En proceso
                                             </span>
-                                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs sm:text-sm font-semibold bg-gradient-to-r from-indigo-500 to-purple-600 text-white flex-shrink-0 w-fit">
+                                            <!-- <span class="inline-flex items-center px-2 py-1 rounded-full text-xs sm:text-sm font-semibold bg-gradient-to-r from-indigo-500 to-purple-600 text-white flex-shrink-0 w-fit">
+                                                
                                                 {{ $percentages[$step] ?? 0 }}%
-                                            </span>
+                                            </span> -->
                                         </div>
                                     </div>
                                 </div>
