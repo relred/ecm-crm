@@ -1,12 +1,12 @@
 <x-layouts.app :title="__('Promovidos')">
     <flux:button href="{{ route('promoted.index') }}" icon="arrow-left">Volver</flux:button>
-    <div class="max-w-md mx-auto">
+    <div class="max-w-md mx-auto mt-4">
         <div class="bg-white shadow-md rounded-2xl p-6 space-y-6">
           <!-- Header -->
           <div class="text-center">
             <h1 class="text-2xl font-bold text-gray-900">{{ $promoted->name }}</h1>
-            <p class="text-md text-gray-500">
-                ID de usuario: <span class="font-medium text-gray-700">kek</span>
+            <p class="text-md text-gray-500 mt-1">
+                ID de usuario: <span class="font-medium text-gray-700">{{ $promoted->id }}</span>
                 <a href="#" class="text-lg text-blue-500 hover:text-blue-700 transition px-3 py-1 rounded border mx-1">
                   Editar
                 </a>
