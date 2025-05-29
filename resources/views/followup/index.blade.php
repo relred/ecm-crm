@@ -1,7 +1,7 @@
 <x-layouts.app :title="__('Seguimiento')">
     <div class="min-h-screen">
         
-        <div class="max-w-4xl mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto py-8">
             <!-- Header Section -->
             <div class="text-center mb-2">
                 <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full mb-4 shadow-lg">
