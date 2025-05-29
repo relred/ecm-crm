@@ -57,7 +57,7 @@
                 <option value="0" @selected(request('touches') === '0')>🚫 Sin avances</option>
                 <option value="1" @selected(request('touches') === '1')>➡️ Paso 1</option>
                 <option value="2" @selected(request('touches') === '2')>➡️ Paso 2</option>
-                <option value="3" @selected(request('touches') === '3')>✅ Completo (3 pasos)</option>
+                <option value="3" @selected(request('touches') === '3')>✔️ Completo (3 pasos)</option>
             </select>
 
 
@@ -125,7 +125,7 @@
                                         ✅ Completado
                                         @break
                                     @default
-                                        🤖 ¿Más de 3 pasos?
+                                        ---
                                 @endswitch
                             </td>
                             

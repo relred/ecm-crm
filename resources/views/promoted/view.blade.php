@@ -62,7 +62,36 @@
                 <p class="text-lg font-medium text-gray-800">{{ $promoted->municipality }}</p>
               </div>
             </div>
-    
+
+            <div class="flex items-start gap-3">
+              <i class="ti ti-building-bank text-gray-400 mt-1"></i>
+              <div>
+                <p class="text-sm text-gray-500">Seguimiento</p>
+                <p class="text-lg font-medium text-gray-800">
+                  @php
+                      $step = $promoted->currentTouch() ?? 0;
+                  @endphp
+              
+                  @switch($step)
+                      @case(0)
+                          🚫 Sin avances
+                          @break
+                      @case(1)
+                          ➡️ Paso 1
+                          @break
+                      @case(2)
+                          ➡️ Paso 2
+                          @break
+                      @case(3)
+                          ✅ Completado
+                          @break
+                      @default
+                          🤖 ¿Más de 3 pasos?
+                  @endswitch
+                </p>
+              </div>
+            </div>
+
             <div class="flex items-start gap-3">
               <i class="ti ti-notes text-gray-400 mt-1"></i>
               <div>
