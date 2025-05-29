@@ -33,7 +33,7 @@ class PromotedController extends Controller
             }
         }        
     
-        $promoted = $query->latest()->paginate(10)->withQueryString(); // Keep filters on pagination
+        $promoted = $query->latest()->paginate(50)->withQueryString(); // Keep filters on pagination
     
         $municipalities = Promoted::where('created_by', auth()->id())
             ->select('municipality')

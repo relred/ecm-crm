@@ -6,6 +6,17 @@
             <h2 class="text-xl ml-2">Promovidos</h2>
         </div>
 
+        {{-- Create Button --}}
+        <div class="my-4">
+            <flux:button
+                href="{{ route('promoted.create') }}"
+                icon="plus"
+                variant="primary"
+                >
+                Registrar Promovido
+            </flux:button>
+        </div>
+        
         {{-- Filter Form --}}
         <form method="GET" action="{{ route('promoted.index') }}"
             class="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap gap-3 items-start lg:items-end">
@@ -49,15 +60,7 @@
                     Limpiar filtros
                 </flux:link>
             </div>
-        </form>    
-
-        {{-- Create Button --}}
-        <div class="my-4">
-            <a href="{{ route('promoted.create') }}"
-                class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
-                Registrar Promovido
-            </a>
-        </div>
+        </form>
 
         {{-- Table --}}
         <div class="relative overflow-x-auto sm:rounded-lg">
