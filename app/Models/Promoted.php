@@ -25,5 +25,9 @@ class Promoted extends Model
         return $this->hasOne(Touch::class)->latestOfMany('touch_number');
     }
 
+    public function getNeedsTransportStatus(): string|null
+    {
+        return $this->needs_transport;
+    }
 
 }

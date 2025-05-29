@@ -23,6 +23,15 @@ class PromotedController extends Controller
         if ($request->filled('municipality')) {
             $query->where('municipality', $request->municipality);
         }
+
+        if ($request->filled('needs_transport')) {
+            $value = $request->needs_transport;
+            if ($value === 'null') {
+                $query->whereNull('needs_transport');
+            } else {
+                $query->where('needs_transport', (bool) $value);
+            }
+        }        
     
         $promoted = $query->latest()->paginate(10)->withQueryString(); // Keep filters on pagination
     

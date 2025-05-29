@@ -91,6 +91,9 @@ Route::middleware(['auth', 'role:promoter,operator'])->group(function () {
     Route::get('/promoted/{promoted}', [PromotedController::class, 'view'])->name('promoted.view');
     Route::get('/promoted/{promoted}/follow-up', [FollowUpController::class, 'index'])->name('followup.index');
     Route::post('/promoted/{promoted}/follow-up/touch', [FollowUpController::class, 'storeTouch'])->name('followup.touch.store');
+    Route::get('/promoted/{promoted}/transport', [FollowUpController::class, 'editTransport'])->name('followup.transport');
+    Route::patch('/promoted/{promoted}/transport', [FollowUpController::class, 'updateTransport'])->name('followup.transport.update');
+
 });
 
 Route::middleware(['auth', 'role:monitor,admin'])->group(function () {

@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Promoted;
 use App\Models\Touch;
+use Illuminate\View\View;
 
 class FollowUpController extends Controller
 {
-    
     public function index(Promoted $promoted)
     {
 
@@ -28,6 +28,7 @@ class FollowUpController extends Controller
     
         return view('followup.index', compact('promoted', 'touches', 'nextTouch'));
     }
+
     public function storeTouch(Request $request, Promoted $promoted)
     {
         $validated = $request->validate([
@@ -58,5 +59,27 @@ class FollowUpController extends Controller
     
         return redirect()->route('followup.index', $promoted)->with('success', 'Toque registrado.');
     }
+
+    public function updateTransportIndex(): View 
+    {
+        return view('followup.update-transport');
+    }
+
+    public function editTransport(Promoted $promoted)
+    {
+        return view('followup.update-transport', compact('promoted'));
+    }
+
+    public function updateTransport(Request $request, Promoted $promoted)
+    {
+        $validated = $request->validate([
+            'needs_transport' => 'nullable|boolean',
+        ]);
+
+        $promoted->update(['needs_transport' => $validated['needs_transport']]);
+
+        return redirect()->route('promoted.view', $promoted)->with('status', 'Estado de transporte actualizado');
+    }
+
     
 }
