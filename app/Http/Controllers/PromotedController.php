@@ -8,11 +8,32 @@ use Illuminate\View\View;
 
 class PromotedController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $promoted = Promoted::where('created_by', auth()->id())->latest()->get();
-
-        return view('promoted.index', compact('promoted'));
+        $query = Promoted::where('created_by', auth()->id());
+    
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('locality', 'like', "%{$search}%");
+            });
+        }
+    
+        if ($request->filled('municipality')) {
+            $query->where('municipality', $request->municipality);
+        }
+    
+        $promoted = $query->latest()->paginate(10)->withQueryString(); // Keep filters on pagination
+    
+        $municipalities = Promoted::where('created_by', auth()->id())
+            ->select('municipality')
+            ->distinct()
+            ->pluck('municipality')
+            ->filter()
+            ->sort();
+    
+        return view('promoted.index', compact('promoted', 'municipalities'));
     }
 
     public function create()
