@@ -51,6 +51,16 @@
                 <option value="null" @selected(request('needs_transport') === 'null')>🤔 Aún no sabemos</option>
             </select>
 
+            <select name="touches"
+                class="border rounded-lg px-4 py-2 text-sm dark:bg-gray-800 dark:text-white dark:border-gray-700">
+                <option value="">Todos los pasos</option>
+                <option value="0" @selected(request('touches') === '0')>🚫 Sin avances</option>
+                <option value="1" @selected(request('touches') === '1')>➡️ Paso 1</option>
+                <option value="2" @selected(request('touches') === '2')>➡️ Paso 2</option>
+                <option value="3" @selected(request('touches') === '3')>✅ Completo (3 pasos)</option>
+            </select>
+
+
             <div class="flex gap-2 mt-1 lg:mt-0 items-center">
                 <flux:button type="submit" icon="magnifying-glass">
                     Filtrar
@@ -72,6 +82,7 @@
                         <th scope="col" class="px-6 py-3 hidden md:table-cell">Teléfono</th>
                         <th scope="col" class="px-6 py-3 hidden md:table-cell">Dirección</th>
                         <th scope="col" class="px-6 py-3 hidden md:table-cell">Municipio</th>
+                        <th scope="col" class="px-6 py-3 hidden md:table-cell">Toque</th>
                         <th scope="col" class="px-6 py-3 table-cell">Transporte</th>
 
                         <th scope="col" class="px-6 py-3">Acciones</th>
@@ -95,6 +106,29 @@
                             <td class="px-6 py-4 hidden md:table-cell">
                                 {{ $person->municipality ?? '—' }}
                             </td>
+                            <td class="px-6 py-4 hidden md:table-cell">
+                                @php
+                                    $step = $person->currentTouch() ?? 0;
+                                @endphp
+                            
+                                @switch($step)
+                                    @case(0)
+                                        🚫 Sin avances
+                                        @break
+                                    @case(1)
+                                        ➡️ Paso 1
+                                        @break
+                                    @case(2)
+                                        ➡️ Paso 2
+                                        @break
+                                    @case(3)
+                                        ✅ Completado
+                                        @break
+                                    @default
+                                        🤖 ¿Más de 3 pasos?
+                                @endswitch
+                            </td>
+                            
                             <td class="px-6 py-4 table-cell text-center">
                                 @if ($person->needs_transport === 1)
                                     ✅

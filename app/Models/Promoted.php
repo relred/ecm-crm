@@ -30,4 +30,8 @@ class Promoted extends Model
         return $this->needs_transport;
     }
 
+    public function currentTouch(): int
+    {
+        return $this->contactTouches()->count();
+    }    
 }

@@ -10,7 +10,7 @@ class PromotedController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Promoted::where('created_by', auth()->id());
+        $query = Promoted::withCount('contactTouches')->where('created_by', auth()->id());
     
         if ($request->filled('search')) {
             $search = $request->search;
@@ -31,9 +31,13 @@ class PromotedController extends Controller
             } else {
                 $query->where('needs_transport', (bool) $value);
             }
-        }        
+        }
     
-        $promoted = $query->latest()->paginate(50)->withQueryString(); // Keep filters on pagination
+        if ($request->filled('touches')) {
+            $query->having('contact_touches_count', '=', (int) $request->touches);
+        }
+    
+        $promoted = $query->latest()->paginate(50)->withQueryString();
     
         $municipalities = Promoted::where('created_by', auth()->id())
             ->select('municipality')
