@@ -33,5 +33,10 @@ class Promoted extends Model
     public function currentTouch(): int
     {
         return $this->contactTouches()->count();
-    }    
+    }
+
+    public function import()
+    {
+        return $this->belongsTo(PromotedImport::class, 'import_id');
+    }
 }

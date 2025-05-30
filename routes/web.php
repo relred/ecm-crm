@@ -10,6 +10,7 @@ use App\Http\Controllers\FollowUpController;
 use App\Http\Controllers\MonitorDashboardController;
 use App\Http\Controllers\OperatorController;
 use App\Http\Controllers\PromotedController;
+use App\Http\Controllers\PromotedImportController;
 use App\Http\Controllers\PromoterController;
 use App\Http\Controllers\SubcoordinatorController;
 
@@ -78,6 +79,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/operators', [OperatorController::class, 'store'])->name('operators.store');
     Route::get('/import-promoted', [PromotedController::class, 'importView'])->name('promoted.import');
     Route::post('/import-promoted', [PromotedController::class, 'import'])->name('promoted.import.store');
+    Route::get('/import-promoted/history', [PromotedImportController::class, 'history'])->name('promoted.import.history');
+
 });
 
 Route::middleware(['auth', 'role:subcoordinator,operator'])->group(function () {

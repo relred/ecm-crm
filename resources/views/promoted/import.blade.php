@@ -5,7 +5,6 @@
         <h2 class="text-xl ml-2">Promotores</h2>
     </div>
     <div class="max-w-xl mx-auto mt-10 bg-white p-6 rounded-2xl shadow-md space-y-6">
-        
         @if(session('success'))
             <div class="bg-green-100 text-green-800 border border-green-200 rounded-lg p-4">
                 {{ session('success') }}
@@ -80,10 +79,13 @@
                     type="submit"
                     class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-md shadow-sm transition-colors"
                 >
-                    ✅ Importar Promovidos
+                    Importar Promovidos
                 </button>
             </div>
         </form>
+    </div>
+    <div class="text-center mt-6">
+        <flux:link href="{{ route('promoted.import.history') }}">Ver historial</flux:link>
     </div>
     
     <script>
