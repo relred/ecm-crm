@@ -80,7 +80,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/import-promoted', [PromotedController::class, 'importView'])->name('promoted.import');
     Route::post('/import-promoted', [PromotedController::class, 'import'])->name('promoted.import.store');
     Route::get('/import-promoted/history', [PromotedImportController::class, 'history'])->name('promoted.import.history');
-
+    Route::post('/import-promoted/{import}/rollback', [PromotedImportController::class, 'rollback'])->name('promoted.import.rollback');
 });
 
 Route::middleware(['auth', 'role:subcoordinator,operator'])->group(function () {

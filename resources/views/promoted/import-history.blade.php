@@ -15,20 +15,34 @@
                     </div>
                     <div class="text-right">
                         <p class="text-sm text-gray-600">Total imported: <strong>{{ $import->promoted_count }}</strong></p>
+                        @if (!$import->isCancelled())
+                            <form method="POST" action="{{ route('promoted.import.rollback', $import) }}"
+                                onsubmit="return confirm('¿Esta Seguro de completar esta acción?');"
+                                class="mt-4">
+                                @csrf
+                                <button type="submit"
+                                    class="px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded">
+                                    Deshacer
+                                </button>
+                            </form>
+                        @else
+                            <p class="mt-4 text-sm text-red-500 font-semibold">Esta importacion fue deshecha | {{ $import->cancelled_at }}</p>
+                        @endif
                     </div>
                 </div>
-    
-                <div class="relative max-h-48 overflow-hidden">
-                    <ul class="divide-y divide-gray-200">
-                        @foreach($import->promoted as $promoted)
-                            <li class="py-2">
-                                <strong>{{ $promoted->name }}</strong>
-                                <span class="text-sm text-gray-500 ml-2">{{ $promoted->phone }}</span>
-                            </li>
-                        @endforeach
-                    </ul>
-                    <div class="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
-                </div>
+                @if (!$import->isCancelled())
+                    <div class="relative max-h-48 overflow-hidden">
+                        <ul class="divide-y divide-gray-200">
+                            @foreach($import->promoted as $promoted)
+                                <li class="py-2">
+                                    <strong>{{ $promoted->name }}</strong>
+                                    <span class="text-sm text-gray-500 ml-2">{{ $promoted->phone }}</span>
+                                </li>
+                            @endforeach
+                        </ul>
+                        <div class="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
+                    </div>
+                @endif
             </div>
         @endforeach
     </div>

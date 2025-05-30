@@ -16,4 +16,17 @@ class PromotedImportController extends Controller
 
         return view('promoted.import-history', compact('imports'));
     }
+
+    public function rollback(PromotedImport $import)
+    {
+        if ($import->isCancelled()) {
+            return back()->with('error', 'This import has already been cancelled.');
+        }
+
+        $import->promoted()->delete();
+        $import->update(['cancelled_at' =>  now()]);
+
+        return back()->with('success', 'Importe deshecho con éxito.');
+    }
+
 }

@@ -8,6 +8,13 @@ class PromotedImport extends Model
 {
     protected $guarded = ['id'];
 
+    protected $dates = ['cancelled_at'];
+
+    public function isCancelled()
+    {
+        return $this->cancelled_at !== null;
+    }
+
     public function promoted()
     {
         return $this->hasMany(Promoted::class, 'import_id');
