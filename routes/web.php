@@ -76,6 +76,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/operators', [OperatorController::class, 'index'])->name('operators');
     Route::get('/operators/create', [OperatorController::class, 'create'])->name('operators.create');
     Route::post('/operators', [OperatorController::class, 'store'])->name('operators.store');
+    Route::get('/import-promoted', [PromotedController::class, 'importView'])->name('promoted.import');
+    Route::post('/import-promoted', [PromotedController::class, 'import'])->name('promoted.import.store');
 });
 
 Route::middleware(['auth', 'role:subcoordinator,operator'])->group(function () {

@@ -15,6 +15,7 @@
                 <flux:navlist.group :heading="__('Platform')" class="grid">
                     @if (auth()->user()->role == "admin")
                         <flux:navlist.item icon="cursor-arrow-ripple" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Enlaces Estatales') }}</flux:navlist.item>
+                        <flux:navlist.item icon="table-cells" :href="route('promoted.import')" :current="request()->routeIs('promoted.import')" wire:navigate>{{ __('Importar Promovidos') }}</flux:navlist.item>
                     @endif
 
                     @if (auth()->user()->role == "coordinator")

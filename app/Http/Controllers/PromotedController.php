@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Promoted;
 use Illuminate\View\View;
+use App\Imports\PromotedImport as ImportPromoted;
+use App\Models\PromotedImport as ModelsPromotedImport;
+use App\Models\User;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PromotedController extends Controller
 {
@@ -77,4 +81,27 @@ class PromotedController extends Controller
         return view('promoted.view', compact('promoted'));
     }
 
+    public function importView()
+    {
+        $coordinators = User::where('role', 'coordinator')->orderBy('state')->get();
+        return view('promoted.import', compact('coordinators'));
+    }
+    
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file|mimes:xlsx,xls,csv',
+            'promoter_id' => 'required|exists:users,id',
+        ]);
+
+        $importRecord = ModelsPromotedImport::create([
+            'created_by' => auth()->id(),
+            'promoter_id' => $request->promoter_id,
+        ]);
+    
+        Excel::import(new ImportPromoted($importRecord), $request->file('file'));
+    
+        return redirect()->route('promoted.import')->with('success', 'Excel importado correctamente.');
+    }
+    
 }
