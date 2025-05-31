@@ -15,6 +15,7 @@ use App\Http\Controllers\PromoterController;
 use App\Http\Controllers\SubcoordinatorController;
 use App\Http\Controllers\MobilizationActivityController;
 use App\Http\Controllers\SpecialSupporterController;
+use App\Http\Controllers\MobilizationController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -119,7 +120,8 @@ Route::middleware(['auth', 'role:promoter,operator'])->group(function () {
     Route::post('/promoted/{promoted}/follow-up/touch', [FollowUpController::class, 'storeTouch'])->name('followup.touch.store');
     Route::get('/promoted/{promoted}/transport', [FollowUpController::class, 'editTransport'])->name('followup.transport');
     Route::patch('/promoted/{promoted}/transport', [FollowUpController::class, 'updateTransport'])->name('followup.transport.update');
-
+    Route::get('/promoted/{promoted}/mobilization', [MobilizationController::class, 'index'])->name('mobilization.index');
+    Route::patch('/promoted/{promoted}/mobilization', [MobilizationController::class, 'update'])->name('mobilization.update');
 });
 
 Route::middleware(['auth', 'role:monitor,admin'])->group(function () {

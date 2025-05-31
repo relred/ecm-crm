@@ -16,7 +16,7 @@
           <!-- Info -->
           <div class="space-y-4">
             <div class="flex items-start gap-3">
-              <i class="ti ti-phone text-gray-400 mt-1"></i>
+              <i class="ti ti-car text-gray-400 mt-1"></i>
               <div>
                 <p class="text-sm text-gray-500">¿Necesita Transporte?</p>
                 <p class="text-lg font-medium text-gray-800">
@@ -26,6 +26,20 @@
                     ❌ No necesita transporte
                   @else
                     🤔 Aún no sabemos
+                  @endif
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <i class="ti ti-walk text-gray-400 mt-1"></i>
+              <div>
+                <p class="text-sm text-gray-500">Estado de Movilización</p>
+                <p class="text-lg font-medium text-gray-800">
+                  @if ($promoted->isMobilized())
+                    ✅ Movilizado
+                  @else
+                    ❌ No movilizado
                   @endif
                 </p>
               </div>
@@ -64,7 +78,7 @@
             </div>
 
             <div class="flex items-start gap-3">
-              <i class="ti ti-building-bank text-gray-400 mt-1"></i>
+              <i class="ti ti-checklist text-gray-400 mt-1"></i>
               <div>
                 <p class="text-sm text-gray-500">Seguimiento</p>
                 <p class="text-lg font-medium text-gray-800">
@@ -101,25 +115,38 @@
             </div>
           </div>
     
-          <div class="flex flex-col sm:flex-row justify-center items-center gap-3 mt-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6">
             <flux:button
                 href="{{ route('followup.index', $promoted->id) }}"
                 variant="primary"
                 icon="signal"
-                class="bg-gray-800 hover:bg-gray-700 text-white w-full sm:w-auto"
+                class="bg-gray-800 hover:bg-gray-700 text-white w-full"
             >
                 Dar seguimiento
             </flux:button>
-        
+
             <flux:button
                 href="{{ route('followup.transport', $promoted->id) }}"
                 variant="primary"
                 icon="truck"
-                class="bg-amber-600 hover:bg-amber-500 text-white w-full sm:w-auto"
+                class="bg-amber-600 hover:bg-amber-500 text-white w-full"
             >
                 Editar Transporte
             </flux:button>
-        </div>
+
+            @unless($promoted->isMobilized())
+              <div class="sm:col-span-2 flex justify-center">
+                <flux:button
+                  href="{{ route('mobilization.index', $promoted) }}"
+                  icon="check"
+                  class="bg-green-600 hover:bg-green-500 text-white w-full sm:w-auto"
+                >
+                  Registrar Movilización
+                </flux:button>
+              </div>
+            @endunless
+          </div>
+
         
           
             

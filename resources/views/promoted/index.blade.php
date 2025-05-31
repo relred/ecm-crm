@@ -83,8 +83,8 @@
                         <th scope="col" class="px-6 py-3 hidden md:table-cell">Dirección</th>
                         <th scope="col" class="px-6 py-3 hidden md:table-cell">Municipio</th>
                         <th scope="col" class="px-6 py-3 hidden md:table-cell">Toque</th>
-                        <th scope="col" class="px-6 py-3 table-cell">Transporte</th>
-
+                        <th scope="col" class="px-6 py-3 hidden md:table-cell">Transporte</th>
+                        <th scope="col" class="px-6 py-3 table-cell">Movilizado</th>
                         <th scope="col" class="px-6 py-3">Acciones</th>
                     </tr>
                 </thead>
@@ -129,13 +129,20 @@
                                 @endswitch
                             </td>
                             
-                            <td class="px-6 py-4 table-cell text-center">
+                            <td class="px-6 py-4 text-center hidden md:table-cell">
                                 @if ($person->needs_transport === 1)
                                     ✅
                                 @elseif ($person->needs_transport === 0)
                                     ❌
                                 @else
                                     🤔
+                                @endif
+                            </td>
+                            <td class="px-6 py-4 table-cell text-center">
+                                @if ($person->isMobilized())
+                                    ✅
+                                @else
+                                    ❌
                                 @endif
                             </td>
                             <td class="px-6 py-4">
