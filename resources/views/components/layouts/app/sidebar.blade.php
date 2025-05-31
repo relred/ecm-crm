@@ -26,6 +26,7 @@
 
                     @if (auth()->user()->role == "admin")
                         <flux:navlist.item icon="lifebuoy" :href="route('operators')" :current="request()->routeIs('operators')" wire:navigate>{{ __('Operadores ECM') }}</flux:navlist.item>
+                        <flux:navlist.item icon="user" :href="route('admin.special-supporters.index')" :current="request()->routeIs('admin.special-supporters.index')" wire:navigate>{{ __('Movilizadores Especiales') }}</flux:navlist.item>
                     @endif
 
                     @if (auth()->user()->role == "subcoordinator" || auth()->user()->role == "operator")
