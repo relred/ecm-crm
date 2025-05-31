@@ -73,6 +73,7 @@ Route::middleware(['auth', 'role:coordinator'])->group(function () {
     Route::post('/coordinator/subcoordinators', [SubcoordinatorController::class, 'store'])->name('coordinator.subcoordinators.store');
     Route::get('/coordinator/dashboard', [CoordinatorController::class, 'dashboard'])->name('coordinator.dashboard');
     Route::get('/coordinator/subcoordinator-stats', [CoordinatorController::class, 'subcoordinatorStats'])->name('coordinator.subcoordinator-stats');
+    Route::get('/coordinator/subcoordinators/{subcoordinator}', [SubcoordinatorController::class, 'view'])->name('coordinator.subcoordinators.view');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
@@ -91,6 +92,7 @@ Route::middleware(['auth', 'role:subcoordinator,operator'])->group(function () {
     Route::post('/promoters', [PromoterController::class, 'store'])->name('promoters.store');
     Route::get('/subcoordinator/dashboard', [SubcoordinatorController::class, 'dashboard'])->name('subcoordinator.dashboard');
     Route::get('/promoter-stats', [SubcoordinatorController::class, 'promoterStats'])->name('subcoordinator.promoter-stats');
+    Route::get('/promoters/{promoter}', [PromoterController::class, 'view'])->name('promoters.view');
 });
 
 Route::middleware(['auth', 'role:promoter,operator'])->group(function () {

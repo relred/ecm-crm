@@ -74,7 +74,11 @@
                                 {{ $user->public_password }}
                             </td>
                             <td class="px-6 py-4">
-                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Ver Usuario</a>
+                                <flux:button
+                                    href="{{ route('coordinator.subcoordinators.view', $user->id) }}"
+                                    icon:trailing="arrow-up-right">
+                                    Ver
+                                </flux:button>
                             </td>
                         </tr>                        
                     @endforeach

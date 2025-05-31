@@ -68,4 +68,51 @@ class PromoterController extends Controller
     
         return redirect()->route('promoters')->with('success', 'Coordinador creado con contraseña: ' . $plainPassword);
     }
+
+    public function view(User $promoter)
+    {
+        // Ensure the promoter belongs to the current subcoordinator
+        if ($promoter->parent_id !== auth()->id()) {
+            abort(403);
+        }
+
+        // Get statistics
+        $promotedQuery = $promoter->promoted();
+        $promotedCount = $promotedQuery->count();
+
+        // Get touch statistics
+        $touchCounts = [1 => 0, 2 => 0, 3 => 0];
+        $touchData = $promotedQuery->withCount([
+            'contactTouches as touch1' => fn ($q) => $q->where('touch_number', 1),
+            'contactTouches as touch2' => fn ($q) => $q->where('touch_number', 2),
+            'contactTouches as touch3' => fn ($q) => $q->where('touch_number', 3),
+        ])->get();
+
+        foreach ($touchData as $promoted) {
+            if ($promoted->touch1) $touchCounts[1]++;
+            if ($promoted->touch2) $touchCounts[2]++;
+            if ($promoted->touch3) $touchCounts[3]++;
+        }
+
+        // Calculate percentages
+        $percentages = [];
+        foreach ($touchCounts as $touch => $count) {
+            $percentages[$touch] = $promotedCount > 0 ? round(($count / $promotedCount) * 100, 2) : 0;
+        }
+
+        // Get recent promoted
+        $recentPromoted = $promoter->promoted()
+            ->withCount(['contactTouches'])
+            ->orderBy('created_at', 'desc')
+            ->take(5)
+            ->get();
+
+        return view('promoters.view', compact(
+            'promoter',
+            'promotedCount',
+            'touchCounts',
+            'percentages',
+            'recentPromoted'
+        ));
+    }
 }

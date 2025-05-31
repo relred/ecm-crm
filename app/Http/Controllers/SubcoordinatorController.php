@@ -67,6 +67,71 @@ class SubcoordinatorController extends Controller
         return redirect()->route('coordinator.subcoordinators.index')->with('success', 'Coordinador creado con contraseña: ' . $plainPassword);
     }
 
+    public function view(User $subcoordinator)
+    {
+        // Ensure the subcoordinator belongs to the current coordinator
+        if ($subcoordinator->parent_id !== auth()->id()) {
+            abort(403);
+        }
+
+        // Get statistics
+        $promoterCount = $subcoordinator->children()
+            ->where('role', 'promoter')
+            ->count();
+
+        $promotedQuery = Promoted::whereHas('creator', function($query) use ($subcoordinator) {
+            $query->where('parent_id', $subcoordinator->id)
+                ->where('role', 'promoter');
+        });
+
+        $promotedCount = $promotedQuery->count();
+
+        // Get touch statistics
+        $touchCounts = [1 => 0, 2 => 0, 3 => 0];
+        $touchData = $promotedQuery->withCount([
+            'contactTouches as touch1' => fn ($q) => $q->where('touch_number', 1),
+            'contactTouches as touch2' => fn ($q) => $q->where('touch_number', 2),
+            'contactTouches as touch3' => fn ($q) => $q->where('touch_number', 3),
+        ])->get();
+
+        foreach ($touchData as $promoted) {
+            if ($promoted->touch1) $touchCounts[1]++;
+            if ($promoted->touch2) $touchCounts[2]++;
+            if ($promoted->touch3) $touchCounts[3]++;
+        }
+
+        // Calculate percentages
+        $percentages = [];
+        foreach ($touchCounts as $touch => $count) {
+            $percentages[$touch] = $promotedCount > 0 ? round(($count / $promotedCount) * 100, 2) : 0;
+        }
+
+        // Get top 5 promoters
+        $topPromoters = $subcoordinator->children()
+            ->where('role', 'promoter')
+            ->withCount(['promoted as total_promoted'])
+            ->withCount(['promoted as touched_promoted' => function($query) {
+                $query->has('contactTouches');
+            }])
+            ->withCount(['promoted as fully_touched_promoted' => function($query) {
+                $query->whereHas('contactTouches', function($q) {
+                    $q->where('touch_number', 3);
+                });
+            }])
+            ->orderBy('total_promoted', 'desc')
+            ->take(5)
+            ->get();
+
+        return view('coordinator.subcoordinators.view', compact(
+            'subcoordinator',
+            'promoterCount',
+            'promotedCount',
+            'touchCounts',
+            'percentages',
+            'topPromoters'
+        ));
+    }
+
     public function dashboard()
     {
         $user = auth()->user();
