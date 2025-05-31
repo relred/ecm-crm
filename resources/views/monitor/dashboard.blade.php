@@ -19,36 +19,36 @@
             <!-- Filter Section -->
             <div class="mb-8">
                 <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 backdrop-blur-sm">
-                    <form method="GET" class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
-                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
-                                </svg>
-                            </div>
-                            <label for="state" class="text-gray-700 font-semibold text-lg">
-                                Filtrar por Estado:
-                            </label>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <flux:icon.presentation-chart-line class="h-6 w-6"/>
+                            <h2 class="text-xl">Panel de Control</h2>
                         </div>
-                        
-                        <div class="relative">
-                            <select name="state" id="state" 
-                                    onchange="this.form.submit()"
-                                    class="appearance-none bg-gradient-to-r from-gray-50 to-gray-100 border-2 border-gray-200 rounded-xl px-6 py-3 pr-12 text-gray-700 font-medium focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 hover:border-gray-300 cursor-pointer min-w-[200px]">
-                                <option value="">🇲🇽 Nacional</option>
-                                @foreach($states as $s)
-                                    <option value="{{ $s }}" {{ $state === $s ? 'selected' : '' }}>
-                                        📍 {{ $s }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
-                                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                                </svg>
-                            </div>
+                        <div class="flex items-center gap-4">
+                            <flux:button href="{{ route('monitor.state-comparison') }}" icon="chart-bar" class="bg-gray-800 hover:bg-gray-700">
+                                Comparación por Estados
+                            </flux:button>
+                            <form action="{{ route('monitor.dashboard') }}" method="GET" class="flex items-center">
+                                <div class="relative">
+                                    <select name="state" id="state" 
+                                            onchange="this.form.submit()"
+                                            class="appearance-none bg-gradient-to-r from-gray-50 to-gray-100 border-2 border-gray-200 rounded-xl px-6 py-3 pr-12 text-gray-700 font-medium focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 hover:border-gray-300 cursor-pointer min-w-[200px]">
+                                        <option value="">🇲🇽 Nacional</option>
+                                        @foreach($states as $s)
+                                            <option value="{{ $s }}" {{ $state === $s ? 'selected' : '' }}>
+                                                📍 {{ $s }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
+                                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
     

@@ -109,6 +109,7 @@ Route::middleware(['auth', 'role:promoter,operator'])->group(function () {
 
 Route::middleware(['auth', 'role:monitor,admin'])->group(function () {
     Route::get('/monitor/dashboard', [MonitorDashboardController::class, 'index'])->name('monitor.dashboard');
+    Route::get('/monitor/state-comparison', [MonitorDashboardController::class, 'stateComparison'])->name('monitor.state-comparison');
 });
 
 Route::get('/external-register/{parent}/{roleHash}', [ExternalRegisterController::class, 'showForm'])
