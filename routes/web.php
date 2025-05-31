@@ -14,6 +14,7 @@ use App\Http\Controllers\PromotedImportController;
 use App\Http\Controllers\PromoterController;
 use App\Http\Controllers\SubcoordinatorController;
 use App\Http\Controllers\MobilizationActivityController;
+use App\Http\Controllers\SpecialSupporterController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -74,6 +75,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/coordinatos', [CoordinatorController::class, 'index'])->name('coordinators.index');
     Route::get('/admin/coordinators/create', [CoordinatorController::class, 'create'])->name('coordinators.create');
     Route::post('/admin/coordinators', [CoordinatorController::class, 'store'])->name('coordinators.store');
+    Route::get('/admin/special-supporters', [SpecialSupporterController::class, 'index'])->name('admin.special-supporters.index');
+    Route::post('/admin/special-supporters/create-link', [SpecialSupporterController::class, 'createLink'])->name('admin.special-supporters.create-link');
+    Route::patch('/admin/special-supporters/{supporter}/update-mobilized', [SpecialSupporterController::class, 'updateMobilized'])->name('admin.special-supporters.update-mobilized');
 });
 
 Route::middleware(['auth', 'role:coordinator'])->group(function () {
@@ -128,5 +132,12 @@ Route::get('/external-register/{parent}/{roleHash}', [ExternalRegisterController
     ->name('external.register');
 Route::post('/external-register', [ExternalRegisterController::class, 'submitForm'])
 ->name('external.register.submit');
+
+// Special Supporters Public Routes
+Route::get('/special/register/{token}', [SpecialSupporterController::class, 'showRegistrationForm'])->name('special.register');
+Route::post('/special/register/{token}', [SpecialSupporterController::class, 'register'])->name('special.register.submit');
+Route::get('/special/success', function() {
+    return view('special-supporters.success');
+})->name('special.success');
 
 require __DIR__.'/auth.php';
