@@ -13,6 +13,7 @@ use App\Http\Controllers\PromotedController;
 use App\Http\Controllers\PromotedImportController;
 use App\Http\Controllers\PromoterController;
 use App\Http\Controllers\SubcoordinatorController;
+use App\Http\Controllers\MobilizationActivityController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -59,6 +60,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/profile', Profile::class)->name('settings.profile');
     Route::get('settings/password', Password::class)->name('settings.password');
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
+
+    // Mobilization Activity Routes
+    Route::get('/befTAmt6', [MobilizationActivityController::class, 'showConfirmation'])
+        ->name('mobilization.confirm');
+    Route::post('/befTAmt6', [MobilizationActivityController::class, 'confirm']);
+    Route::get('/mobilization/confirmed', [MobilizationActivityController::class, 'showConfirmed'])
+        ->name('mobilization.confirmed');
+    
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
@@ -93,6 +102,7 @@ Route::middleware(['auth', 'role:subcoordinator,operator'])->group(function () {
     Route::get('/subcoordinator/dashboard', [SubcoordinatorController::class, 'dashboard'])->name('subcoordinator.dashboard');
     Route::get('/promoter-stats', [SubcoordinatorController::class, 'promoterStats'])->name('subcoordinator.promoter-stats');
     Route::get('/promoters/{promoter}', [PromoterController::class, 'view'])->name('promoters.view');
+    Route::get('/mobilization/manage-promoters', [MobilizationActivityController::class, 'managePromoters'])->name('mobilization.manage-promoters');
 });
 
 Route::middleware(['auth', 'role:promoter,operator'])->group(function () {
@@ -110,6 +120,7 @@ Route::middleware(['auth', 'role:promoter,operator'])->group(function () {
 Route::middleware(['auth', 'role:monitor,admin'])->group(function () {
     Route::get('/monitor/dashboard', [MonitorDashboardController::class, 'index'])->name('monitor.dashboard');
     Route::get('/monitor/state-comparison', [MonitorDashboardController::class, 'stateComparison'])->name('monitor.state-comparison');
+    Route::get('/mobilization/analytics', [MobilizationActivityController::class, 'analytics'])->name('mobilization.analytics');
 });
 
 Route::get('/external-register/{parent}/{roleHash}', [ExternalRegisterController::class, 'showForm'])

@@ -38,6 +38,7 @@
 
                     @if (auth()->user()->role == "monitor" || auth()->user()->role == "admin")
                         <flux:navlist.item icon="presentation-chart-line" :href="route('monitor.dashboard')" :current="request()->routeIs('monitor.dashboard')" wire:navigate>{{ __('Monitoreo') }}</flux:navlist.item>
+                        <flux:navlist.item icon="presentation-chart-line" :href="route('mobilization.analytics')" :current="request()->routeIs('mobilization.analytics')" wire:navigate>{{ __('Estadísticas de Movilización') }}</flux:navlist.item>
                     @endif
 
                 </flux:navlist.group>
