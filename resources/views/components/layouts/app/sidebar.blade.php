@@ -19,6 +19,7 @@
                     @endif
 
                     @if (auth()->user()->role == "coordinator")
+                        <flux:navlist.item icon="presentation-chart-line" :href="route('coordinator.dashboard')" :current="request()->routeIs('coordinator.dashboard')" wire:navigate>{{ __('Panel de Control') }}</flux:navlist.item>
                         <flux:navlist.item icon="map" :href="route('coordinator.subcoordinators.index')" :current="request()->routeIs('coordinator.subcoordinators.index')" wire:navigate>{{ __('Operadores Enlace') }}</flux:navlist.item>
                     @endif
 

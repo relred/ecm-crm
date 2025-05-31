@@ -30,7 +30,7 @@ Route::get('/dashboard', function(){
     }
     
     if ($user->isCoordinator()) {
-        return redirect()->route('coordinator.subcoordinators.index');
+        return redirect()->route('coordinator.dashboard');
     }
 
     if ($user->isOperator()) {
@@ -71,6 +71,8 @@ Route::middleware(['auth', 'role:coordinator'])->group(function () {
     Route::get('/coordinator/subcoordinators', [SubcoordinatorController::class, 'index'])->name('coordinator.subcoordinators.index');
     Route::get('/coordinator/subcoordinators/create', [SubcoordinatorController::class, 'create'])->name('coordinator.subcoordinators.create');
     Route::post('/coordinator/subcoordinators', [SubcoordinatorController::class, 'store'])->name('coordinator.subcoordinators.store');
+    Route::get('/coordinator/dashboard', [CoordinatorController::class, 'dashboard'])->name('coordinator.dashboard');
+    Route::get('/coordinator/subcoordinator-stats', [CoordinatorController::class, 'subcoordinatorStats'])->name('coordinator.subcoordinator-stats');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {

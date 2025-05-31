@@ -74,6 +74,18 @@ class User extends Authenticatable
         return $this->hasMany(Promoted::class, 'created_by');
     }
 
+    public function childrenPromoted()
+    {
+        return $this->hasManyThrough(
+            Promoted::class,
+            User::class,
+            'parent_id', // Foreign key on users table
+            'created_by', // Foreign key on promoted table
+            'id', // Local key on users table
+            'id' // Local key on users table
+        );
+    }
+
     public function touchesPerformed()
     {
         return $this->hasMany(Touch::class);
