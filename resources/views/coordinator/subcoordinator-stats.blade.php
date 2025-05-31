@@ -127,7 +127,9 @@
                                             src="{{ $sub->photo ? asset('storage/' . $sub->photo) : 'https://placehold.co/400x400' }}"
                                             alt="{{ $sub->name }}"
                                         >
-                                        {{ $sub->name }}
+                                        <a href="{{ route('coordinator.subcoordinators.view', $sub->id) }}" class="text-blue-600 dark:text-blue-400 hover:underline">
+                                            {{ $sub->name }}
+                                        </a>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4">

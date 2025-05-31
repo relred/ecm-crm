@@ -114,7 +114,9 @@
                                             src="{{ $promoter->photo ? asset('storage/' . $promoter->photo) : 'https://placehold.co/400x400' }}"
                                             alt="{{ $promoter->name }}"
                                         >
-                                        {{ $promoter->name }}
+                                        <a href="{{ route('promoters.view', $promoter->id) }}" class="text-blue-600 dark:text-blue-400 hover:underline">
+                                            {{ $promoter->name }}
+                                        </a>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4">
