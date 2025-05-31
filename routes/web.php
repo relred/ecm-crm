@@ -38,7 +38,7 @@ Route::get('/dashboard', function(){
     }
 
     if ($user->isSubcoordinator()) {
-        return redirect()->route('promoters');
+        return redirect()->route('subcoordinator.dashboard');
     }
 
     if ($user->isPromoter()) {
@@ -87,6 +87,8 @@ Route::middleware(['auth', 'role:subcoordinator,operator'])->group(function () {
     Route::get('/promoters', [PromoterController::class, 'index'])->name('promoters');
     Route::get('/promoters/create', [PromoterController::class, 'create'])->name('promoters.create');
     Route::post('/promoters', [PromoterController::class, 'store'])->name('promoters.store');
+    Route::get('/subcoordinator/dashboard', [SubcoordinatorController::class, 'dashboard'])->name('subcoordinator.dashboard');
+    Route::get('/promoter-stats', [SubcoordinatorController::class, 'promoterStats'])->name('subcoordinator.promoter-stats');
 });
 
 Route::middleware(['auth', 'role:promoter,operator'])->group(function () {

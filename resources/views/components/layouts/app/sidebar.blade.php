@@ -27,6 +27,7 @@
                     @endif
 
                     @if (auth()->user()->role == "subcoordinator" || auth()->user()->role == "operator")
+                        <flux:navlist.item icon="presentation-chart-line" :href="route('subcoordinator.dashboard')" :current="request()->routeIs('subcoordinator.dashboard')" wire:navigate>{{ __('Panel de Control') }}</flux:navlist.item>
                         <flux:navlist.item icon="user" :href="route('promoters')" :current="request()->routeIs('promoters')" wire:navigate>{{ __('Promotores') }}</flux:navlist.item>
                     @endif
 
