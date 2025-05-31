@@ -21,6 +21,7 @@
                     @if (auth()->user()->role == "coordinator")
                         <flux:navlist.item icon="presentation-chart-line" :href="route('coordinator.dashboard')" :current="request()->routeIs('coordinator.dashboard')" wire:navigate>{{ __('Panel de Control') }}</flux:navlist.item>
                         <flux:navlist.item icon="map" :href="route('coordinator.subcoordinators.index')" :current="request()->routeIs('coordinator.subcoordinators.index')" wire:navigate>{{ __('Operadores Enlace') }}</flux:navlist.item>
+                        <flux:navlist.item icon="map" :href="route('mobilization.manage-subcoordinators')" :current="request()->routeIs('mobilization.manage-subcoordinators')" wire:navigate>{{ __('Monitorear Mobilizacion') }}</flux:navlist.item>
                     @endif
 
                     @if (auth()->user()->role == "admin")
@@ -30,6 +31,8 @@
                     @if (auth()->user()->role == "subcoordinator" || auth()->user()->role == "operator")
                         <flux:navlist.item icon="presentation-chart-line" :href="route('subcoordinator.dashboard')" :current="request()->routeIs('subcoordinator.dashboard')" wire:navigate>{{ __('Panel de Control') }}</flux:navlist.item>
                         <flux:navlist.item icon="user" :href="route('promoters')" :current="request()->routeIs('promoters')" wire:navigate>{{ __('Promotores') }}</flux:navlist.item>
+                        <flux:navlist.item icon="map" :href="route('mobilization.manage-promoters')" :current="request()->routeIs('mobilization.manage-promoters')" wire:navigate>{{ __('Monitorear Mobilizacion') }}</flux:navlist.item>
+
                     @endif
 
                     @if (auth()->user()->role == "promoter" || auth()->user()->role == "operator")

@@ -6,6 +6,7 @@ use App\Models\MobilizationActivity;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class MobilizationActivityController extends Controller
 {
@@ -95,5 +96,32 @@ class MobilizationActivityController extends Controller
             });
 
         return view('mobilization.manage-promoters', compact('promoters'));
+    }
+
+    public function manageSubcoordinators()
+    {
+        $user = Auth::user();
+        
+        // Get all subcoordinators under this coordinator
+        $subcoordinators = User::where('parent_id', $user->id)
+            ->where('role', 'subcoordinator')
+            ->get()
+            ->map(function ($subcoordinator) {
+                // Check if subcoordinator is active
+                $subcoordinator->is_active = MobilizationActivity::where('user_id', $subcoordinator->id)->exists();
+                
+                // Get promoters counts
+                $promoters = User::where('parent_id', $subcoordinator->id)
+                    ->where('role', 'promoter')
+                    ->get();
+                
+                $subcoordinator->total_promoters_count = $promoters->count();
+                $subcoordinator->active_promoters_count = MobilizationActivity::whereIn('user_id', $promoters->pluck('id'))
+                    ->count();
+                
+                return $subcoordinator;
+            });
+
+        return view('mobilization.manage-subcoordinators', compact('subcoordinators'));
     }
 } 

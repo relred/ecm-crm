@@ -83,6 +83,7 @@ Route::middleware(['auth', 'role:coordinator'])->group(function () {
     Route::get('/coordinator/dashboard', [CoordinatorController::class, 'dashboard'])->name('coordinator.dashboard');
     Route::get('/coordinator/subcoordinator-stats', [CoordinatorController::class, 'subcoordinatorStats'])->name('coordinator.subcoordinator-stats');
     Route::get('/coordinator/subcoordinators/{subcoordinator}', [SubcoordinatorController::class, 'view'])->name('coordinator.subcoordinators.view');
+    Route::get('/mobilization/manage-subcoordinators', [MobilizationActivityController::class, 'manageSubcoordinators'])->name('mobilization.manage-subcoordinators');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
