@@ -16,6 +16,7 @@ use App\Http\Controllers\SubcoordinatorController;
 use App\Http\Controllers\MobilizationActivityController;
 use App\Http\Controllers\SpecialSupporterController;
 use App\Http\Controllers\MobilizationController;
+use App\Http\Controllers\StateController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -99,6 +100,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/import-promoted', [PromotedController::class, 'import'])->name('promoted.import.store');
     Route::get('/import-promoted/history', [PromotedImportController::class, 'history'])->name('promoted.import.history');
     Route::post('/import-promoted/{import}/rollback', [PromotedImportController::class, 'rollback'])->name('promoted.import.rollback');
+    Route::get('/states', [StateController::class, 'index'])->name('states.index');
+    Route::get('/states/{state}/edit', [StateController::class, 'edit'])->name('states.edit');
+    Route::put('/states/{state}', [StateController::class, 'update'])->name('states.update');
 });
 
 Route::middleware(['auth', 'role:subcoordinator,operator'])->group(function () {
