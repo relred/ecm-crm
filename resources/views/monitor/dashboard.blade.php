@@ -189,63 +189,6 @@
                 </div>
             </div>
 
-            <!-- Additional Stats Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-                <!-- Card 1: Avance Promedio Nacional -->
-                <div class="bg-white rounded-lg shadow-md p-6 text-center">
-                  <div class="text-4xl font-bold text-gray-800 mb-2">72%</div>
-                  <div class="text-gray-600 text-sm mb-4">Avance Promedio Nacional</div>
-                  <div class="bg-green-500 text-white py-2 px-4 rounded-full text-sm font-medium">
-                    Operación Activa
-                  </div>
-                </div>
-              
-                <!-- Card 2: Incidentes Reportados -->
-                <div class="bg-white rounded-lg shadow-md p-6 text-center">
-                  <div class="text-4xl font-bold text-gray-800 mb-2">128</div>
-                  <div class="text-gray-600 text-sm mb-4">Incidentes Reportados</div>
-                  <div class="bg-yellow-500 text-white py-2 px-4 rounded-full text-sm font-medium">
-                    Zona en Revisión
-                  </div>
-                </div>
-              
-                <!-- Card 3: Estados por Debajo del 60% -->
-                <div class="bg-white rounded-lg shadow-md p-6 text-center">
-                  <div class="text-4xl font-bold text-gray-800 mb-2">14</div>
-                  <div class="text-gray-600 text-sm mb-4">Estados por Debajo del 60%</div>
-                  <div class="bg-red-500 text-white py-2 px-4 rounded-full text-sm font-medium">
-                    Atención Urgente
-                  </div>
-                </div>
-              
-                <!-- Card 4: Promotores Activos -->
-                <div class="bg-white rounded-lg shadow-md p-6 text-center">
-                  <div class="text-4xl font-bold text-gray-800 mb-2">21,367</div>
-                  <div class="text-gray-600 text-sm mb-4">Promotores Activos</div>
-                  <div class="bg-cyan-500 text-white py-2 px-4 rounded-full text-sm font-medium">
-                    Cobertura Estable
-                  </div>
-                </div>
-              
-                <!-- Card 5: Participación Esperada -->
-                <div class="bg-white rounded-lg shadow-md p-6 text-center">
-                  <div class="text-4xl font-bold text-gray-800 mb-2">87%</div>
-                  <div class="text-gray-600 text-sm mb-4">Participación Esperada</div>
-                  <div class="bg-gray-600 text-white py-2 px-4 rounded-full text-sm font-medium">
-                    Proyección Alta
-                  </div>
-                </div>
-              
-                <!-- Card 6: Zonas Críticas Activadas -->
-                <div class="bg-white rounded-lg shadow-md p-6 text-center">
-                  <div class="text-4xl font-bold text-gray-800 mb-2">18</div>
-                  <div class="text-gray-600 text-sm mb-4">Zonas Críticas Activadas</div>
-                  <div class="bg-red-500 text-white py-2 px-4 rounded-full text-sm font-medium">
-                    Intervención Legal
-                  </div>
-                </div>
-            </div>
-
         </div>
     
         <!-- Footer decoration -->
