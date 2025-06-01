@@ -28,7 +28,6 @@
                         <flux:navlist.item icon="lifebuoy" :href="route('operators')" :current="request()->routeIs('operators')" wire:navigate>{{ __('Operadores ECM') }}</flux:navlist.item>
                         <flux:navlist.item icon="user" :href="route('admin.special-supporters.index')" :current="request()->routeIs('admin.special-supporters.index')" wire:navigate>{{ __('Movilizadores Especiales') }}</flux:navlist.item>
                         <flux:navlist.item icon="map" :href="route('states.index')" :current="request()->routeIs('states.index')" wire:navigate>{{ __('Metas Estatales') }}</flux:navlist.item>
-                        <flux:navlist.item icon="map" :href="route('admin.dday-monitoring.index')" :current="request()->routeIs('admin.dday-monitoring.index')" wire:navigate>{{ __('Monitoreo Día D') }}</flux:navlist.item>
                     @endif
 
                     @if (auth()->user()->role == "subcoordinator" || auth()->user()->role == "operator")
@@ -45,6 +44,7 @@
                     @if (auth()->user()->role == "monitor" || auth()->user()->role == "admin")
                         <flux:navlist.item icon="presentation-chart-line" :href="route('monitor.dashboard')" :current="request()->routeIs('monitor.dashboard')" wire:navigate>{{ __('Monitoreo') }}</flux:navlist.item>
                         <flux:navlist.item icon="presentation-chart-line" :href="route('mobilization.analytics')" :current="request()->routeIs('mobilization.analytics')" wire:navigate>{{ __('Estadísticas de Movilización') }}</flux:navlist.item>
+                        <flux:navlist.item icon="map" :href="route('admin.dday-monitoring.index')" :current="request()->routeIs('admin.dday-monitoring.index')" wire:navigate>{{ __('Monitoreo Día D') }}</flux:navlist.item>
                     @endif
 
                     @php

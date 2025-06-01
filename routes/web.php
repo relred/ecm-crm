@@ -52,7 +52,7 @@ Route::get('/dashboard', function(){
     }
 
     if ($user->isMonitor()) {
-        return redirect()->route('monitor.dashboard');
+        return redirect()->route('admin.dday-monitoring.index');
     }
 
     // Optional fallback if none match
@@ -82,7 +82,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/special-supporters', [SpecialSupporterController::class, 'index'])->name('admin.special-supporters.index');
     Route::post('/admin/special-supporters/create-link', [SpecialSupporterController::class, 'createLink'])->name('admin.special-supporters.create-link');
     Route::patch('/admin/special-supporters/{supporter}/update-mobilized', [SpecialSupporterController::class, 'updateMobilized'])->name('admin.special-supporters.update-mobilized');
-    Route::get('/admin/dday-monitoring', [DdayMonitoringController::class, 'index'])->name('admin.dday-monitoring.index');
 });
 
 Route::middleware(['auth', 'role:coordinator'])->group(function () {
@@ -147,6 +146,7 @@ Route::middleware(['auth', 'role:monitor,admin'])->group(function () {
     Route::get('/monitor/dashboard', [MonitorDashboardController::class, 'index'])->name('monitor.dashboard');
     Route::get('/monitor/state-comparison', [MonitorDashboardController::class, 'stateComparison'])->name('monitor.state-comparison');
     Route::get('/mobilization/analytics', [MobilizationActivityController::class, 'analytics'])->name('mobilization.analytics');
+    Route::get('/admin/dday-monitoring', [DdayMonitoringController::class, 'index'])->name('admin.dday-monitoring.index');
 });
 
 Route::get('/external-register/{parent}/{roleHash}', [ExternalRegisterController::class, 'showForm'])
