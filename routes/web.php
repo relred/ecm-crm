@@ -98,9 +98,9 @@ Route::middleware(['auth', 'role:coordinator,subcoordinator,operator'])->group(f
         ->name('mobilization.estimate');
     Route::post('/mobilization/estimate/goal', [MobilizationEstimateController::class, 'submitGoal'])
         ->name('mobilization.estimate.goal.submit');
-    Route::get('/mobilization/estimate/update', [MobilizationEstimateController::class, 'showUpdateForm'])
+    Route::get('/LTEA6pyP', [MobilizationEstimateController::class, 'showUpdateForm'])
         ->name('mobilization.estimate.update');
-    Route::post('/mobilization/estimate/update', [MobilizationEstimateController::class, 'submitEstimate'])
+    Route::post('/LTEA6pyP', [MobilizationEstimateController::class, 'submitEstimate'])
         ->name('mobilization.estimate.update.submit');
 
 });
