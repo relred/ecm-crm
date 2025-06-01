@@ -34,15 +34,6 @@
                             Operadores
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Toque 1
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Toque 2
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Toque 3
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             % Completado
                         </th>
                     </tr>
@@ -68,15 +59,7 @@
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm text-gray-900">{{ number_format($stats['operatorCount']) }}</div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900">{{ number_format($stats['touchCounts'][1]) }}</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900">{{ number_format($stats['touchCounts'][2]) }}</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900">{{ number_format($stats['touchCounts'][3]) }}</div>
-                            </td>
+
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="w-full bg-gray-200 rounded-full h-2.5 mr-2">
