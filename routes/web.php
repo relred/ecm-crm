@@ -18,6 +18,7 @@ use App\Http\Controllers\SpecialSupporterController;
 use App\Http\Controllers\MobilizationController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\MobilizationEstimateController;
+use App\Http\Controllers\DdayMonitoringController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -81,6 +82,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/special-supporters', [SpecialSupporterController::class, 'index'])->name('admin.special-supporters.index');
     Route::post('/admin/special-supporters/create-link', [SpecialSupporterController::class, 'createLink'])->name('admin.special-supporters.create-link');
     Route::patch('/admin/special-supporters/{supporter}/update-mobilized', [SpecialSupporterController::class, 'updateMobilized'])->name('admin.special-supporters.update-mobilized');
+    Route::get('/admin/dday-monitoring', [DdayMonitoringController::class, 'index'])->name('admin.dday-monitoring.index');
 });
 
 Route::middleware(['auth', 'role:coordinator'])->group(function () {
