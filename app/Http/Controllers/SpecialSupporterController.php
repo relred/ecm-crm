@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SpecialSupporter;
+use App\Models\State;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -36,7 +37,9 @@ class SpecialSupporterController extends Controller
             ->where('is_registered', false)
             ->firstOrFail();
 
-        return view('special-supporters.register', compact('supporter'));
+        $states = State::orderBy('name')->pluck('name');
+
+        return view('special-supporters.register', compact('supporter', 'states'));
     }
 
     public function register(Request $request, $token)

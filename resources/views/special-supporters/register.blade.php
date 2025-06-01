@@ -43,7 +43,7 @@
                                 <label for="name" class="block text-sm font-medium text-gray-700">Nombre Completo</label>
                                 <input id="name" name="name" type="text" required 
                                     class="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                                    placeholder="Enter your full name">
+                                    placeholder="Ingresa tu nombre completo">
                             </div>
                         </div>
                         <div class="mt-4">
@@ -58,15 +58,19 @@
                         <div class="rounded-md shadow-sm -space-y-px space-y-4">
                             <div>
                                 <label for="state" class="block text-sm font-medium text-gray-700">Estado</label>
-                                <input id="state" name="state" type="text" required 
-                                    class="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                                    placeholder="Enter your state">
+                                <select id="state" name="state" required 
+                                    class="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm">
+                                    <option value="" disabled selected>Seleccionar estado</option>
+                                    @foreach($states as $state)
+                                        <option value="{{ $state }}">{{ $state }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="pt-4">
                                 <label for="municipality" class="block text-sm font-medium text-gray-700">Municipio</label>
                                 <input id="municipality" name="municipality" type="text" required 
                                     class="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                                    placeholder="Enter your municipality">
+                                    placeholder="Ingresa tu municipio">
                             </div>
                         </div>
                         <div class="mt-4 flex justify-between">
@@ -86,7 +90,7 @@
                                 <label for="mobilized_goal" class="block text-sm font-medium text-gray-700">Objetivo de Movilización</label>
                                 <input id="mobilized_goal" name="mobilized_goal" type="number" required min="1"
                                     class="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                                    placeholder="Enter your mobilization goal">
+                                    placeholder="Ingresa tu objetivo de movilización">
                             </div>
                         </div>
                         <div class="mt-4 flex justify-between">
