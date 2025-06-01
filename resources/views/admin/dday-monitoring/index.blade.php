@@ -29,7 +29,7 @@
                         </div>
 
                         <!-- Estimated Goal -->
-                        <div class="bg-green-50 dark:bg-green-900/50 rounded-lg p-6">
+<!--                         <div class="bg-green-50 dark:bg-green-900/50 rounded-lg p-6">
                             <h4 class="text-sm font-medium text-green-800 dark:text-green-200">Meta Estimada Total</h4>
                             <p class="mt-2 text-3xl font-bold text-green-600 dark:text-green-300">
                                 {{ number_format($totalEstimatedGoal) }}
@@ -42,7 +42,7 @@
                                     {{ number_format($estimatedGoalPercentage, 1) }}% alcanzado
                                 </p>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- Current Mobilized -->
                         <div class="bg-purple-50 dark:bg-purple-900/50 rounded-lg p-6">
@@ -75,10 +75,10 @@
                                 <tr>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Estado</th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Meta Estatal</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Meta Estimada</th>
+                                    <!-- <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Meta Estimada</th> -->
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Movilizados</th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">% Meta Estatal</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">% Meta Estimada</th>
+                                    <!-- <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">% Meta Estimada</th> -->
                                 </tr>
                             </thead>
                             <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
@@ -90,12 +90,12 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
                                             {{ number_format($state['goal']) }}
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+<!--                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
                                             {{ number_format($state['total_estimated_goal']) }}
                                             <span class="text-xs text-gray-400 dark:text-gray-500">
                                                 (E: {{ number_format($state['special_goal']) }} | C: {{ number_format($state['coordinator_goal']) }})
                                             </span>
-                                        </td>
+                                        </td> -->
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
                                             {{ number_format($state['total_current_mobilized']) }}
                                             <span class="text-xs text-gray-400 dark:text-gray-500">
@@ -113,7 +113,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+<!--                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
                                             @php
                                                 $stateEstimatedPercentage = $state['total_estimated_goal'] > 0 ? ($state['total_current_mobilized'] / $state['total_estimated_goal']) * 100 : 0;
                                             @endphp
@@ -123,7 +123,7 @@
                                                     <div class="bg-green-600 dark:bg-green-400 h-1.5 rounded-full" style="width: {{ min($stateEstimatedPercentage, 100) }}%"></div>
                                                 </div>
                                             </div>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                 @endforeach
                             </tbody>
