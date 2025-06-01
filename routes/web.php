@@ -17,6 +17,7 @@ use App\Http\Controllers\MobilizationActivityController;
 use App\Http\Controllers\SpecialSupporterController;
 use App\Http\Controllers\MobilizationController;
 use App\Http\Controllers\StateController;
+use App\Http\Controllers\MobilizationEstimateController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -90,6 +91,18 @@ Route::middleware(['auth', 'role:coordinator'])->group(function () {
     Route::get('/coordinator/subcoordinator-stats', [CoordinatorController::class, 'subcoordinatorStats'])->name('coordinator.subcoordinator-stats');
     Route::get('/coordinator/subcoordinators/{subcoordinator}', [SubcoordinatorController::class, 'view'])->name('coordinator.subcoordinators.view');
     Route::get('/mobilization/manage-subcoordinators', [MobilizationActivityController::class, 'manageSubcoordinators'])->name('mobilization.manage-subcoordinators');
+});
+
+Route::middleware(['auth', 'role:coordinator,subcoordinator,operator'])->group(function () {
+    Route::get('/mobilization/estimate', [MobilizationEstimateController::class, 'showEstimateForm'])
+        ->name('mobilization.estimate');
+    Route::post('/mobilization/estimate/goal', [MobilizationEstimateController::class, 'submitGoal'])
+        ->name('mobilization.estimate.goal.submit');
+    Route::get('/mobilization/estimate/update', [MobilizationEstimateController::class, 'showUpdateForm'])
+        ->name('mobilization.estimate.update');
+    Route::post('/mobilization/estimate/update', [MobilizationEstimateController::class, 'submitEstimate'])
+        ->name('mobilization.estimate.update.submit');
+
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {

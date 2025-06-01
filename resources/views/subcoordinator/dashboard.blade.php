@@ -1,5 +1,34 @@
 <x-layouts.app :title="__('Dashboard')">
     <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
+        @php
+            $isActive = \App\Models\MobilizationActivity::where('user_id', auth()->id())->exists();
+            $hasEstimate = \App\Models\MobilizationEstimate::where('user_id', auth()->id())->exists();
+        @endphp
+        
+        @if($isActive && !$hasEstimate)
+        <div class="bg-amber-50 dark:bg-amber-900/30 border-l-4 border-amber-400 dark:border-amber-500 p-4 rounded-lg">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-amber-400 dark:text-amber-500" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm text-amber-700 dark:text-amber-400">
+                            No has establecido tu objetivo de movilización para el día D. Es importante definirlo para poder hacer seguimiento.
+                        </p>
+                    </div>
+                </div>
+                <div class="ml-4">
+                    <flux:button href="{{ route('mobilization.estimate') }}" color="amber" wire:navigate>
+                        Establecer Objetivo
+                    </flux:button>
+                </div>
+            </div>
+        </div>
+        @endif
+
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
                 <flux:icon.presentation-chart-line class="h-6 w-6"/>

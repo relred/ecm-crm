@@ -46,6 +46,14 @@
                         <flux:navlist.item icon="presentation-chart-line" :href="route('mobilization.analytics')" :current="request()->routeIs('mobilization.analytics')" wire:navigate>{{ __('Estadísticas de Movilización') }}</flux:navlist.item>
                     @endif
 
+                    @php
+                        $user = auth()->user();
+                        $isActive = \App\Models\MobilizationActivity::where('user_id', $user->id)->exists();
+                    @endphp
+                    @if (($user->role == "coordinator" || $user->role == "subcoordinator" || $user->role == "operator") && $isActive)
+                        <flux:navlist.item icon="presentation-chart-line" :href="route('mobilization.estimate')" :current="request()->routeIs('mobilization.estimate')" wire:navigate>{{ __('Estimación de Movilización') }}</flux:navlist.item>
+                    @endif
+
                 </flux:navlist.group>
             </flux:navlist>
 
