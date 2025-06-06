@@ -10,9 +10,7 @@
     <div>
         <img src="{{ asset('images/cover.jpeg') }}" alt="Cover" class="w-full">
     </div>
-    <div class="container mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold text-center mb-8">Reporte Día D</h1>
-        
+    <div class="container mx-auto px-4 py-8">        
         <div class="bg-white rounded-lg shadow overflow-hidden">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
