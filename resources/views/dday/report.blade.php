@@ -72,17 +72,17 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 @php
-                                    $bgColor = '';
+                                    $bgColor = 'bg-red-200';
                                     $text = 'Ninguno';
                                     
                                     if ($stats['system_usage'] === 1) {
-                                        $bgColor = 'bg-green-100';
+                                        $bgColor = 'bg-green-200';
                                         $text = 'Sistema';
                                     } elseif ($stats['system_usage'] === 2) {
-                                        $bgColor = 'bg-yellow-100';
+                                        $bgColor = 'bg-yellow-200';
                                         $text = 'Mixto';
                                     } elseif ($stats['system_usage'] === 3) {
-                                        $bgColor = 'bg-yellow-100';
+                                        $bgColor = 'bg-yellow-200';
                                         $text = 'Whatsapp';
                                     }
                                 @endphp
