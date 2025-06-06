@@ -91,6 +91,10 @@ class User extends Authenticatable
         return $this->hasMany(Touch::class);
     }
 
+    public function mobilizationActivity()
+    {
+        return $this->hasOne(MobilizationActivity::class);
+    }
 
     // Role scopes
     public function scopeRole($query, $role)

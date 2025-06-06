@@ -19,6 +19,7 @@ use App\Http\Controllers\MobilizationController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\MobilizationEstimateController;
 use App\Http\Controllers\DdayMonitoringController;
+use App\Http\Controllers\DdayReportController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -160,5 +161,8 @@ Route::post('/special/register/{token}', [SpecialSupporterController::class, 're
 Route::get('/special/success', function() {
     return view('special-supporters.success');
 })->name('special.success');
+
+Route::get('/dday-report', [DdayReportController::class, 'index'])->name('dday.report');
+Route::get('/dday-report/subcoordinators/{state}', [DdayReportController::class, 'subcoordinators'])->name('dday.subcoordinators');
 
 require __DIR__.'/auth.php';
