@@ -7,6 +7,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100">
+    <div>
+        <img src="{{ asset('images/cover.jpeg') }}" alt="Cover" class="w-full">
+    </div>
     <div class="container mx-auto px-4 py-8">
         <h1 class="text-3xl font-bold text-center mb-8">Reporte Día D</h1>
         
