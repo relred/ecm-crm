@@ -66,13 +66,14 @@ class DdayReportController extends Controller
             ->where('mobilized', true)
             ->count();
 
-            // Get mobilization estimates for this state
-            $mobilizationEstimate = DB::table('mobilization_estimates')
-                ->join('mobilization_activities', 'mobilization_estimates.mobilization_activity_id', '=', 'mobilization_activities.id')
-                ->join('users', 'mobilization_activities.user_id', '=', 'users.id')
-                ->where('users.state', $state)
-                ->whereNotNull('mobilization_estimates.estimated_count')
-                ->sum('mobilization_estimates.estimated_count');
+            // Get mobilization estimates for this state using the same logic as monitoring
+            $stateCoordinators = MobilizationActivity::where('role', 'coordinator')
+                ->where('state', $state)
+                ->get();
+
+            $mobilizationEstimate = MobilizationEstimate::whereIn('mobilization_activity_id', $stateCoordinators->pluck('id'))
+                ->where('estimated_count', '!=', null)
+                ->sum('estimated_count');
 
             // Determine system usage for the state
             $systemUsage = null;
