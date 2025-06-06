@@ -30,7 +30,7 @@
                             Movilizados
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Meta Movilización
+                            Uso del Sistema
                         </th>
                     </tr>
                 </thead>
@@ -68,10 +68,27 @@
                                 <div class="text-sm text-gray-900">{{ $stats['active_operators'] }}</div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900">{{ $stats['mobilized_count'] }}</div>
+                                <div class="text-sm text-gray-900">{{ $stats['mobilization_estimate'] }}</div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900">{{ $stats['mobilization_estimate'] }}</div>
+                                @php
+                                    $bgColor = '';
+                                    $text = 'Ninguno';
+                                    
+                                    if ($stats['system_usage'] === 1) {
+                                        $bgColor = 'bg-green-100';
+                                        $text = 'Sistema';
+                                    } elseif ($stats['system_usage'] === 2) {
+                                        $bgColor = 'bg-yellow-100';
+                                        $text = 'Mixto';
+                                    } elseif ($stats['system_usage'] === 3) {
+                                        $bgColor = 'bg-yellow-100';
+                                        $text = 'Whatsapp';
+                                    }
+                                @endphp
+                                <div class="text-sm {{ $bgColor }} px-2 py-1 rounded-full inline-block">
+                                    {{ $text }}
+                                </div>
                             </td>
                         </tr>
                     @endforeach

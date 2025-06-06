@@ -36,7 +36,8 @@ class DdayReportController extends Controller
                     'active_operators' => 0,
                     'mobilized_count' => 0,
                     'mobilization_estimate' => 0,
-                    'active_coordinators' => []
+                    'active_coordinators' => [],
+                    'system_usage' => null
                 ];
                 continue;
             }
@@ -73,6 +74,18 @@ class DdayReportController extends Controller
                 ->whereNotNull('mobilization_estimates.estimated_count')
                 ->sum('mobilization_estimates.estimated_count');
 
+            // Determine system usage for the state
+            $systemUsage = null;
+            $coordinatorUsages = $activeCoordinators->pluck('system_usage')->filter()->unique()->values();
+            
+            if ($coordinatorUsages->isEmpty()) {
+                $systemUsage = null;
+            } elseif ($coordinatorUsages->count() === 1) {
+                $systemUsage = $coordinatorUsages->first();
+            } else {
+                $systemUsage = 2; // Mixto
+            }
+
             $stateStats[$state] = [
                 'has_activity' => true,
                 'promoted_count' => $promotedCount,
@@ -80,7 +93,8 @@ class DdayReportController extends Controller
                 'active_operators' => $activeOperators,
                 'mobilized_count' => $mobilizedCount,
                 'mobilization_estimate' => $mobilizationEstimate,
-                'active_coordinators' => $activeCoordinators->pluck('name')->toArray()
+                'active_coordinators' => $activeCoordinators->pluck('name')->toArray(),
+                'system_usage' => $systemUsage
             ];
         }
 

@@ -162,7 +162,7 @@ Route::get('/special/success', function() {
     return view('special-supporters.success');
 })->name('special.success');
 
-Route::get('/dday-report', [DdayReportController::class, 'index'])->name('dday.report');
-Route::get('/dday-report/subcoordinators/{state}', [DdayReportController::class, 'subcoordinators'])->name('dday.subcoordinators');
+Route::get('/report/fAXR6BtD', [DdayReportController::class, 'index'])->name('dday.report');
+Route::get('/report/fAXR6BtD/subcoordinators/{state}', [DdayReportController::class, 'subcoordinators'])->name('dday.subcoordinators');
 
 require __DIR__.'/auth.php';
