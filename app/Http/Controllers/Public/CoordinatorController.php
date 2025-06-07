@@ -18,6 +18,9 @@ class CoordinatorController extends Controller
                     ->withCount(['children as promoters_count' => function ($q) {
                         $q->role('promoter');
                     }])
+                    ->withCount(['childrenPromoted as mobilized_count' => function ($q) {
+                        $q->where('mobilized', true);
+                    }])
                     ->withCount('childrenPromoted');
             }])
             ->withCount(['children as subcoordinators_count' => function ($query) {
@@ -25,6 +28,9 @@ class CoordinatorController extends Controller
             }])
             ->withCount(['children as promoters_count' => function ($query) {
                 $query->role('promoter');
+            }])
+            ->withCount(['childrenPromoted as direct_mobilized_count' => function ($query) {
+                $query->where('mobilized', true);
             }])
             ->withCount('childrenPromoted as direct_promoted_count')
             ->get()
@@ -38,10 +44,13 @@ class CoordinatorController extends Controller
 
                 // Calculate total promoted (direct + from subcoordinators)
                 $totalPromoted = $coordinator->direct_promoted_count;
+                $totalMobilized = $coordinator->direct_mobilized_count;
                 foreach ($coordinator->children as $subcoordinator) {
                     $totalPromoted += $subcoordinator->children_promoted_count;
+                    $totalMobilized += $subcoordinator->mobilized_count;
                 }
                 $coordinator->promoted_count = $totalPromoted;
+                $coordinator->mobilized_count = $totalMobilized;
 
                 return $coordinator;
             });
@@ -56,6 +65,9 @@ class CoordinatorController extends Controller
             ->withCount(['children as promoters_count' => function ($query) {
                 $query->role('promoter');
             }])
+            ->withCount(['childrenPromoted as mobilized_count' => function ($query) {
+                $query->where('mobilized', true);
+            }])
             ->withCount('childrenPromoted as promoted_count')
             ->get();
 
@@ -66,6 +78,9 @@ class CoordinatorController extends Controller
     {
         $promoters = $subcoordinator->children()
             ->role('promoter')
+            ->withCount(['promoted as mobilized_count' => function ($query) {
+                $query->where('mobilized', true);
+            }])
             ->withCount('promoted as promoted_count')
             ->get();
 
@@ -75,6 +90,8 @@ class CoordinatorController extends Controller
     public function promoted(User $promoter)
     {
         $promoted = $promoter->promoted()
+            ->orderBy('mobilized', 'desc')
+            ->orderBy('name', 'asc')
             ->get();
 
         return view('public.coordinators.promoted', compact('promoter', 'promoted'));

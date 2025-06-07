@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Operadores - {{ $coordinator->name }}</title>
+    <title>Subcoordinadores - {{ $coordinator->name }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100">
@@ -11,9 +11,9 @@
         <header class="bg-white shadow">
             <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center">
-                    <h1 class="text-3xl font-bold text-gray-900">Operadores de {{ $coordinator->name }}</h1>
+                    <h1 class="text-3xl font-bold text-gray-900">Subcoordinadores de {{ $coordinator->name }}</h1>
                     <a href="{{ route('public.coordinators.index') }}" class="text-sm text-gray-600 hover:text-gray-900">
-                        ← Volver a Enlaces estatales
+                        ← Volver a coordinadores
                     </a>
                 </div>
             </div>
@@ -31,6 +31,7 @@
                                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
                                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Promotores</th>
                                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Promovidos</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mobilizados</th>
                                         </tr>
                                     </thead>
                                     <tbody class="bg-white divide-y divide-gray-200">
@@ -44,6 +45,9 @@
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap">
                                                     <div class="text-sm text-gray-900">{{ $subcoordinator->promoted_count }}</div>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    <div class="text-sm text-gray-900">{{ $subcoordinator->mobilized_count }}</div>
                                                 </td>
                                             </tr>
                                         @endforeach

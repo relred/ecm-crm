@@ -24,7 +24,12 @@
                 <div class="px-4 py-6 sm:px-0">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         @foreach($promoted as $person)
-                            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg {{ $person->mobilized ? 'ring-2 ring-green-500' : '' }}">
+                                @if($person->mobilized)
+                                    <div class="bg-green-50 px-4 py-2 border-b border-green-100">
+                                        <p class="text-sm font-medium text-green-800">Movilizado</p>
+                                    </div>
+                                @endif
                                 <div class="p-6">
                                     <div class="flex items-center space-x-4">
                                         <div class="flex-shrink-0">
@@ -35,7 +40,14 @@
                                             </div>
                                         </div>
                                         <div class="flex-1 min-w-0">
-                                            <h3 class="text-lg font-medium text-gray-900 truncate">{{ $person->name }}</h3>
+                                            <div class="flex items-center space-x-2">
+                                                <h3 class="text-lg font-medium text-gray-900 truncate">{{ $person->name }}</h3>
+                                                @if($person->mobilized)
+                                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                        Mobilizado
+                                                    </span>
+                                                @endif
+                                            </div>
                                             <p class="text-sm text-gray-500">{{ $person->state }}</p>
                                         </div>
                                     </div>
