@@ -20,6 +20,7 @@ use App\Http\Controllers\StateController;
 use App\Http\Controllers\MobilizationEstimateController;
 use App\Http\Controllers\DdayMonitoringController;
 use App\Http\Controllers\DdayReportController;
+use App\Http\Controllers\Public\CoordinatorController as PublicCoordinatorController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -164,5 +165,11 @@ Route::get('/special/success', function() {
 
 Route::get('/report/fAXR6BtD', [DdayReportController::class, 'index'])->name('dday.report');
 Route::get('/report/fAXR6BtD/subcoordinators/{state}', [DdayReportController::class, 'subcoordinators'])->name('dday.subcoordinators');
+
+// Public coordinator hierarchy routes
+Route::get('/coordinators', [PublicCoordinatorController::class, 'index'])->name('public.coordinators.index');
+Route::get('/coordinators/{coordinator}/subcoordinators', [PublicCoordinatorController::class, 'subcoordinators'])->name('public.coordinators.subcoordinators');
+Route::get('/subcoordinators/{subcoordinator}/promoters', [PublicCoordinatorController::class, 'promoters'])->name('public.coordinators.promoters');
+Route::get('/promoters/{promoter}/promoted', [PublicCoordinatorController::class, 'promoted'])->name('public.coordinators.promoted');
 
 require __DIR__.'/auth.php';
