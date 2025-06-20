@@ -113,6 +113,11 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                @if(isset($data['coordinators']) && $data['coordinators']->hasPages())
+                                    <div class="mt-6">
+                                        {{ $data['coordinators']->appends(['tab' => $selectedTab, 'state' => $selectedState])->links() }}
+                                    </div>
+                                @endif
                             @endif
 
                             @if($selectedTab === 'subcoordinators')
@@ -160,6 +165,11 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                @if(isset($data['subcoordinators']) && $data['subcoordinators']->hasPages())
+                                    <div class="mt-6">
+                                        {{ $data['subcoordinators']->appends(['tab' => $selectedTab, 'state' => $selectedState])->links() }}
+                                    </div>
+                                @endif
                             @endif
 
                             @if($selectedTab === 'promoters')
@@ -207,6 +217,11 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                @if(isset($data['promoters']) && $data['promoters']->hasPages())
+                                    <div class="mt-6">
+                                        {{ $data['promoters']->appends(['tab' => $selectedTab, 'state' => $selectedState])->links() }}
+                                    </div>
+                                @endif
                             @endif
 
                             @if($selectedTab === 'promoted')
@@ -259,6 +274,11 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                @if(isset($data['promoted']) && $data['promoted']->hasPages())
+                                    <div class="mt-6">
+                                        {{ $data['promoted']->appends(['tab' => $selectedTab, 'state' => $selectedState])->links() }}
+                                    </div>
+                                @endif
                             @endif
                         </div>
                     </div>

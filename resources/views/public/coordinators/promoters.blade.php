@@ -54,6 +54,12 @@
                                     </tbody>
                                 </table>
                             </div>
+                            
+                            @if($promoters->hasPages())
+                                <div class="mt-6">
+                                    {{ $promoters->links() }}
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>

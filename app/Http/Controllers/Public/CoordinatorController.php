@@ -62,6 +62,7 @@ class CoordinatorController extends Controller
     {
         $selectedTab = $request->get('tab', 'coordinators');
         $selectedState = $request->get('state', '');
+        $perPage = 250; // Number of items per page
         
         // Get all available states
         $states = User::whereNotNull('state')
@@ -89,7 +90,7 @@ class CoordinatorController extends Controller
                 $query->where('state', $selectedState);
             }
 
-            $data['coordinators'] = $query->get();
+            $data['coordinators'] = $query->paginate($perPage);
         }
 
         // Get subcoordinators
@@ -108,7 +109,7 @@ class CoordinatorController extends Controller
                 $query->where('state', $selectedState);
             }
 
-            $data['subcoordinators'] = $query->get();
+            $data['subcoordinators'] = $query->paginate($perPage);
         }
 
         // Get promoters
@@ -125,7 +126,7 @@ class CoordinatorController extends Controller
                 $query->where('state', $selectedState);
             }
 
-            $data['promoters'] = $query->get();
+            $data['promoters'] = $query->paginate($perPage);
         }
 
         // Get promoted
@@ -140,7 +141,7 @@ class CoordinatorController extends Controller
                 });
             }
 
-            $data['promoted'] = $query->get();
+            $data['promoted'] = $query->paginate($perPage);
         }
 
         return view('public.coordinators.all-members', compact('data', 'selectedTab', 'selectedState', 'states'));
@@ -157,7 +158,7 @@ class CoordinatorController extends Controller
                 $query->where('mobilized', true);
             }])
             ->withCount('childrenPromoted as promoted_count')
-            ->get();
+            ->paginate(50);
 
         return view('public.coordinators.subcoordinators', compact('coordinator', 'subcoordinators'));
     }
@@ -170,7 +171,7 @@ class CoordinatorController extends Controller
                 $query->where('mobilized', true);
             }])
             ->withCount('promoted as promoted_count')
-            ->get();
+            ->paginate(50);
 
         return view('public.coordinators.promoters', compact('subcoordinator', 'promoters'));
     }
@@ -180,7 +181,7 @@ class CoordinatorController extends Controller
         $promoted = $promoter->promoted()
             ->orderBy('mobilized', 'desc')
             ->orderBy('name', 'asc')
-            ->get();
+            ->paginate(250);
 
         return view('public.coordinators.promoted', compact('promoter', 'promoted'));
     }

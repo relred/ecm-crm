@@ -54,6 +54,12 @@
                                     </tbody>
                                 </table>
                             </div>
+                            
+                            @if($subcoordinators->hasPages())
+                                <div class="mt-6">
+                                    {{ $subcoordinators->links() }}
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>

@@ -79,6 +79,12 @@
                             </div>
                         @endforeach
                     </div>
+                    
+                    @if($promoted->hasPages())
+                        <div class="mt-8">
+                            {{ $promoted->links() }}
+                        </div>
+                    @endif
                 </div>
             </div>
         </main>
