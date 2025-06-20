@@ -58,6 +58,94 @@ class CoordinatorController extends Controller
         return view('public.coordinators.index', compact('coordinators'));
     }
 
+    public function allMembers(Request $request)
+    {
+        $selectedTab = $request->get('tab', 'coordinators');
+        $selectedState = $request->get('state', '');
+        
+        // Get all available states
+        $states = User::whereNotNull('state')
+            ->distinct()
+            ->orderBy('state')
+            ->pluck('state');
+
+        $data = [];
+
+        // Get coordinators
+        if ($selectedTab === 'coordinators') {
+            $query = User::role('coordinator')
+                ->withCount(['children as subcoordinators_count' => function ($query) {
+                    $query->role('subcoordinator');
+                }])
+                ->withCount(['children as promoters_count' => function ($query) {
+                    $query->role('promoter');
+                }])
+                ->withCount(['childrenPromoted as promoted_count' => function ($query) {
+                    $query->where('mobilized', true);
+                }])
+                ->orderBy('name', 'asc');
+
+            if ($selectedState) {
+                $query->where('state', $selectedState);
+            }
+
+            $data['coordinators'] = $query->get();
+        }
+
+        // Get subcoordinators
+        if ($selectedTab === 'subcoordinators') {
+            $query = User::role('subcoordinator')
+                ->with('parent')
+                ->withCount(['children as promoters_count' => function ($query) {
+                    $query->role('promoter');
+                }])
+                ->withCount(['childrenPromoted as promoted_count' => function ($query) {
+                    $query->where('mobilized', true);
+                }])
+                ->orderBy('name', 'asc');
+
+            if ($selectedState) {
+                $query->where('state', $selectedState);
+            }
+
+            $data['subcoordinators'] = $query->get();
+        }
+
+        // Get promoters
+        if ($selectedTab === 'promoters') {
+            $query = User::role('promoter')
+                ->with('parent')
+                ->withCount(['promoted as promoted_count'])
+                ->withCount(['promoted as mobilized_count' => function ($query) {
+                    $query->where('mobilized', true);
+                }])
+                ->orderBy('name', 'asc');
+
+            if ($selectedState) {
+                $query->where('state', $selectedState);
+            }
+
+            $data['promoters'] = $query->get();
+        }
+
+        // Get promoted
+        if ($selectedTab === 'promoted') {
+            $query = Promoted::with('creator')
+                ->orderBy('mobilized', 'desc')
+                ->orderBy('name', 'asc');
+
+            if ($selectedState) {
+                $query->whereHas('creator', function ($q) use ($selectedState) {
+                    $q->where('state', $selectedState);
+                });
+            }
+
+            $data['promoted'] = $query->get();
+        }
+
+        return view('public.coordinators.all-members', compact('data', 'selectedTab', 'selectedState', 'states'));
+    }
+
     public function subcoordinators(User $coordinator)
     {
         $subcoordinators = $coordinator->children()

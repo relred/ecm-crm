@@ -172,4 +172,7 @@ Route::get('/coordinators/{coordinator}/subcoordinators', [PublicCoordinatorCont
 Route::get('/subcoordinators/{subcoordinator}/promoters', [PublicCoordinatorController::class, 'promoters'])->name('public.coordinators.promoters');
 Route::get('/promoters/{promoter}/promoted', [PublicCoordinatorController::class, 'promoted'])->name('public.coordinators.promoted');
 
+// Public all members section
+Route::get('/m3m83r5', [PublicCoordinatorController::class, 'allMembers'])->name('public.members.index');
+
 require __DIR__.'/auth.php';
