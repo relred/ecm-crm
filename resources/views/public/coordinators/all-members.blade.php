@@ -233,6 +233,7 @@
                                         <thead class="bg-gray-50">
                                             <tr>
                                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
+                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
                                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Teléfono</th>
                                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Municipio</th>
                                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mobilizado</th>
@@ -250,6 +251,9 @@
                                                                 @endif
                                                             </div>
                                                         </div>
+                                                    </td>
+                                                    <td class="px-6 py-4 whitespace-nowrap max-w-[20px] overflow-hidden text-ellipsis">
+                                                        <div class="text-sm text-gray-900">{{ $promoted->creator->state }}</div>
                                                     </td>
                                                     <td class="px-6 py-4 whitespace-nowrap max-w-[15px] overflow-hidden text-ellipsis">
                                                         <div class="text-sm text-gray-900">{{ $promoted->phone }}</div>
